@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    GreetingView(Greeting().greet() +  "SOLO PRUEBA DE ERICK DESARROLLO")
                 }
             }
         }
