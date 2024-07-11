@@ -27,9 +27,11 @@ local.properties
 /build
 /captures
 /.externalNativeBuild
+
 /.cxx/
 *.apk
 *.ap_
+
 /bin/
 /gradle-wrapper.jar
 
