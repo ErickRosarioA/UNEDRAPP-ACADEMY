@@ -27,18 +27,14 @@ local.properties
 /build
 /captures
 /.externalNativeBuild
-.cxx/
-/local.properties
 /.cxx/
 *.apk
 *.ap_
-output.json
 /bin/
 /gradle-wrapper.jar
 
 # IntelliJ
-*.iml
-.idea/
+
 /misc.xml
 /deploymentTargetDropDown.xml
 /render.experimental.xml
