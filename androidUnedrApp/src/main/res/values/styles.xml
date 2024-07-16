@@ -6,9 +6,7 @@
     <style name="UNEDRAPPLight" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:colorPrimary">@color/color_primary</item>
         <item name="android:colorSecondary" tools:targetApi="n_mr1">@color/color_secondary</item>
+        <item name="android:statusBarColor" >?attr/colorScheme</item>
     </style>
-
-
-
 
 </resources>
