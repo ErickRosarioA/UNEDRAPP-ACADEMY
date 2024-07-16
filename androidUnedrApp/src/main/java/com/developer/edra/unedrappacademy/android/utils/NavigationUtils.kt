@@ -1,4 +1,4 @@
-package com.developer.edra.unedrappacademy.android.ui.navigation
+package com.developer.edra.unedrappacademy.android.utils
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController

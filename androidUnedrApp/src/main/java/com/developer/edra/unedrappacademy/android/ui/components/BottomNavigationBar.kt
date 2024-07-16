@@ -8,8 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.developer.edra.unedrappacademy.android.data.models.ItemsBottomNav
-import com.developer.edra.unedrappacademy.android.ui.navigation.currentRoute
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.developer.edra.unedrappacademy.android.utils.currentRoute
 
 @Composable
 fun BottomNavigationBar(
