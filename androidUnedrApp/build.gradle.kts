@@ -65,4 +65,7 @@ dependencies {
     implementation(libs.navigation.jetpack.compose)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.koin.android)
+
+
 }
