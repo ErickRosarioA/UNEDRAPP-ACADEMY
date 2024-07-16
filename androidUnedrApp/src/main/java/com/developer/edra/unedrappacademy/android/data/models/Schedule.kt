@@ -1,12 +1,14 @@
 package com.developer.edra.unedrappacademy.android.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Schedule(
-    val id: Int = 0,
-    val subjectId: Int = 0,
-    val day: String = "",
-    val room: String = "",
-    val modality: String = "",
-    val startTime: String = "",
-    val endTime: String = "",
-    val teacher: String = ""
+    @SerializedName("Id") val id: Int = 0,
+    @SerializedName("AsignaturaId") val subjectId: Int = 0,
+    @SerializedName("Dia") val day: String = "",
+    @SerializedName("Aula") val classroom: String = "",
+    @SerializedName("Modalidad") val modality: String = "",
+    @SerializedName("HoraInicio") val startTime: String = "",
+    @SerializedName("HoraFin") val endTime: String = "",
+    @SerializedName("Profesor") val teacher: String = ""
 )

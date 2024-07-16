@@ -1,9 +1,11 @@
 package com.developer.edra.unedrappacademy.android.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class AuditDetail(
-    val subjectId: Int = 0,
-    val status: String = "",
-    val scheduleId: Int = 0,
-    val noteId: Int = 0,
-    val periodId: Int = 0
+    @SerializedName("AsignaturaId") val subjectId: Int = 0,
+    @SerializedName("Estado") val status: String = "",
+    @SerializedName("HorarioId") val scheduleId: Int = 0,
+    @SerializedName("IdNota")val noteId: Int = 0,
+    @SerializedName("PeriodoId") val periodId: Int = 0
 )

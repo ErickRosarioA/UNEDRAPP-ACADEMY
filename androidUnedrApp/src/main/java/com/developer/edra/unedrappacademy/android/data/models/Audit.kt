@@ -1,7 +1,10 @@
 package com.developer.edra.unedrappacademy.android.data.models
 
-data class Audit (
-    val id: Int = 0,
-    val studentId: Int = 0,
-    val universityAudit: List<AuditDetail> = emptyList()
+import com.google.gson.annotations.SerializedName
+
+
+data class Audit(
+    @SerializedName("Id") val id: Int = 0,
+    @SerializedName("estudianteId") val studentId: Int = 0,
+    @SerializedName("AuditoriaUniversitaria") val universityAudit: List<AuditDetail> = listOf()
 )

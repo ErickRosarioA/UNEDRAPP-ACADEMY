@@ -1,15 +1,17 @@
 package com.developer.edra.unedrappacademy.android.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Career (
-    val id: Int = 0,
-    val name: String = "",
-    val description: String = "",
-    val totalAcademicPeriods: Int = 0,
-    val totalSubjects: Int = 0,
-    val totalCredits: Int = 0,
-    val totalTheoreticalHours: Int = 0,
-    val totalPracticalHours: Int = 0,
-    val totalResearchHours: Int = 0,
-    val totalHours: Int = 0,
-    val subjects: List<Subject> = emptyList()
+    @SerializedName("Id") val id: Int = 0,
+    @SerializedName("Nombre") val name: String = "",
+    @SerializedName("Descripción") val description: String = "",
+    @SerializedName("TotalPeriodosAcademicosCuatrimestrales") val totalQuarterlyAcademicPeriods: Int = 0,
+    @SerializedName("TotalAsignaturas") val totalSubjects: Int = 0,
+    @SerializedName("CreditoTotal") val totalCredits: Int = 0,
+    @SerializedName("TotalHorasTeoricas") val totalTheoryHours: Int = 0,
+    @SerializedName("TotalHorasPracticas") val totalPracticalHours: Int = 0,
+    @SerializedName("TotalHorasInvestigacion") val totalResearchHours: Int = 0,
+    @SerializedName("TotalHoras") val totalHours: Int = 0,
+    @SerializedName("Asignaturas") val subjects: List<Subject> = listOf()
 )

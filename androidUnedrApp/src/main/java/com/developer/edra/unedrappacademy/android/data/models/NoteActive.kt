@@ -1,7 +1,9 @@
 package com.developer.edra.unedrappacademy.android.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class NoteActive(
-    val id: Int = 0,
-    val studentId: Int = 0,
-    val notes: List<NoteDetail> = emptyList()
+    @SerializedName("Id")  val id: Int = 0,
+    @SerializedName("EstudianteId") val studentId: Int = 0,
+    @SerializedName("Notas") val notes: List<NoteDetail> = emptyList()
 )

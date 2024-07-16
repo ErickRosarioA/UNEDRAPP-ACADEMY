@@ -1,15 +1,17 @@
 package com.developer.edra.unedrappacademy.android.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Student(
-    val id: Int = 0,
-    val firstName: String = "",
-    val lastName: String = "",
-    val universityStatus: Boolean = false,
-    val campus: String = "",
-    val enrollment: String = "",
-    val email: String = "",
-    val phone: String = "",
-    val careerId: Int = 0,
-    val auditId: Int = 0,
-    val activeNotesId: Int = 0
+    @SerializedName("Id") val id: Int = 0,
+    @SerializedName("Nombres") val firstName: String = "",
+    @SerializedName("Apellidos") val lastName: String = "",
+    @SerializedName("EstatusUniversitario") val universityStatus: Boolean = false,
+    @SerializedName("Recinto") val campus: String = "",
+    @SerializedName("Matricula") val enrollment: String = "",
+    @SerializedName("Correo") val email: String = "",
+    @SerializedName("Telefono") val phone: String = "",
+    @SerializedName("CarreraId") val careerId: Int = 0,
+    @SerializedName("AuditoriaId") val auditId: Int = 0,
+    @SerializedName("NotasActivasId") val activeGradesId: Int = 0
 )

@@ -17,6 +17,9 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
+        //dataBinding = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -48,4 +51,10 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.realtime.database)
     debugImplementation(libs.compose.ui.tooling)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.google.gson)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.logging)
 }
