@@ -1,4 +1,4 @@
-package com.developer.edra.unedrappacademy.android.ui
+package com.developer.edra.unedrappacademy.android.ui.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,21 +10,32 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.ui.components.BottomNavigationBar
 import com.developer.edra.unedrappacademy.android.ui.components.CustomTopAppBar
+import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavigationAppGraph
+import com.developer.edra.unedrappacademy.android.ui.selection.SelectionViewModel
+import com.developer.edra.unedrappacademy.android.ui.signup.SignUpViewModel
 import com.developer.edra.unedrappacademy.android.utils.currentRoute
 
+
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    mainViewModel: MainViewModel,
+    selectionViewModel: SelectionViewModel,
+    loginViewModel: LoginViewModel,
+    signUpViewModel: SignUpViewModel
+) {
     val navController = rememberNavController()
     val currentRoute = currentRoute(navController)
     val showBottomNav = shouldShowBottomBar(navController)
     val showTopAppBar = shouldShowTopAppBar(currentRoute)
+
+
     Scaffold(
         topBar = {
             if (showTopAppBar) {
                 val title = getTitleForRoute(currentRoute)
-                CustomTopAppBar(title = title, navController = navController)
+                CustomTopAppBar(title = title, navController, mainViewModel)
             }
         },
         bottomBar = {
@@ -38,7 +49,7 @@ fun MainScreen() {
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            NavigationAppGraph(navController = navController)
+            NavigationAppGraph(navController, selectionViewModel, loginViewModel, signUpViewModel)
         }
     }
 }
@@ -53,6 +64,7 @@ fun getTitleForRoute(currentRoute: String?): String {
         else -> ""
     }
 }
+
 @Composable
 fun shouldShowBottomBar(navController: NavHostController): Boolean {
     val currentRoute = currentRoute(navController)
@@ -73,6 +85,7 @@ fun shouldShowTopAppBar(currentRoute: String?): Boolean {
         NavScreen.ScheduleScreen.name,
         NavScreen.RatingsScreen.name,
         NavScreen.AuditScreen.name -> true
+
         else -> false
     }
 }

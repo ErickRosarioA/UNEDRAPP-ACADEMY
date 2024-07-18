@@ -1,5 +1,6 @@
 package com.developer.edra.unedrappacademy.android.ui.login
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,11 +25,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,16 +39,59 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.R
+import com.developer.edra.unedrappacademy.android.ui.models.ValidationResultField
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
+
+@Composable
+fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel) {
+    val context = LocalContext.current
+
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
+
+    LoginScreen(
+        email = email,
+        password = password,
+        onLoginClick = {
+            val result = validateSignUpFields(
+                email.value,
+                password.value
+            )
+
+            if (result.isValid) {
+                loginViewModel.email = email.value
+                loginViewModel.password = password.value
+                loginViewModel.login { success ->
+                    if (success) {
+                        navController.navigate(NavScreen.DashboardScreen.name)
+                    } else {
+                        Toast.makeText(context, "Identificar error", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } else {
+                Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+
+            }
+        },
+        onRegisterClick = {
+            navController.navigate(NavScreen.SignUpScreen.name)
+        }
+    )
+
+}
 
 
 @Composable
-fun LoginScreen(navController: NavController) {
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+fun LoginScreen(
+    email: MutableState<String>,
+    password: MutableState<String>,
+    onRegisterClick: () -> Unit,
+    onLoginClick: () -> Unit,
+) {
 
     Box(
         modifier = Modifier
@@ -116,7 +162,7 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
-                onClick = { navController.navigate(NavScreen.DashboardScreen.name) },
+                onClick = onLoginClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
@@ -136,15 +182,44 @@ fun LoginScreen(navController: NavController) {
                 Text(
                     text = "Registrarme",
                     color = Color.Red,
-                    modifier = Modifier.clickable { navController.navigate(NavScreen.SignUpScreen.name) }
+                    modifier = Modifier.clickable { onRegisterClick() }
                 )
             }
         }
     }
+
+
+}
+
+
+fun validateSignUpFields(
+    email: String,
+    password: String,
+): ValidationResultField {
+    if (email.isEmpty() || password.isEmpty()
+    ) {
+        return ValidationResultField(false, "All fields must be filled.")
+    }
+
+
+
+    if (email.isEmpty() || password.isEmpty()) {
+        return ValidationResultField(false, "Todos los campos deben estar llenos.")
+    }
+
+    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        return ValidationResultField(false, "La dirección de correo electrónico debe ser válida.")
+    }
+
+    if (password.length < 8) {
+        return ValidationResultField(false, "La contraseña debe tener al menos 8 caracteres.")
+    }
+
+    return ValidationResultField(true, "Validación exitosa.")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(rememberNavController())
+    LoginScreen(rememberNavController(), viewModel())
 }

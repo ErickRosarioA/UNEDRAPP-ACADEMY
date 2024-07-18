@@ -1,5 +1,6 @@
 package com.developer.edra.unedrappacademy.android.ui.signup
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.ArrowDropDown
@@ -27,8 +29,14 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,20 +44,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.R
+import com.developer.edra.unedrappacademy.android.ui.models.ValidationResultField
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
+import com.google.firebase.database.core.utilities.Validation
+
 
 @Composable
-fun SignUpScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController, signUpViewModel: SignUpViewModel) {
     val name = remember { mutableStateOf("") }
     val campus = remember { mutableStateOf("") }
     val career = remember { mutableStateOf("") }
@@ -59,9 +73,71 @@ fun SignUpScreen(navController: NavController) {
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
 
+    val context = LocalContext.current
+
+    SignUpScreen(
+        name = name,
+        campus = campus,
+        career = career,
+        enrollment = enrollment,
+        phone = phone,
+        email = email,
+        password = password,
+        confirmPassword = confirmPassword,
+        onSignUpClick = {
+            val result = validateSignUpFields(
+                name.value,
+                campus.value,
+                career.value,
+                enrollment.value,
+                phone.value,
+                email.value,
+                password.value,
+                confirmPassword.value
+            )
+
+            if (result.isValid) {
+                signUpViewModel.email = email.value
+                signUpViewModel.password = password.value
+                signUpViewModel.signUp { success ->
+                    if (success) {
+                        navController.navigate(NavScreen.DashboardScreen.name)
+                    } else {
+                        Toast.makeText(context, "Identificar error", Toast.LENGTH_LONG).show()
+
+                    }
+                }
+            } else {
+                Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+            }
+        },
+        onLoginClick = {
+            navController.navigate(NavScreen.LoginScreen.name)
+        }
+    )
+
+}
+
+
+@Composable
+fun SignUpScreen(
+    name: MutableState<String>,
+    campus: MutableState<String>,
+    career: MutableState<String>,
+    enrollment: MutableState<String>,
+    phone: MutableState<String>,
+    email: MutableState<String>,
+    password: MutableState<String>,
+    confirmPassword: MutableState<String>,
+    onSignUpClick: () -> Unit,
+    onLoginClick: () -> Unit,
+) {
+
+
     val textFieldModifier = Modifier
         .fillMaxWidth()
         .padding(vertical = 8.dp)
+
 
     Box(
         modifier = Modifier
@@ -169,7 +245,7 @@ fun SignUpScreen(navController: NavController) {
                     label = { Text("Matrícula") },
                     leadingIcon = {
                         Icon(
-                            painter =painterResource( R.drawable.confirmation_number),
+                            painter = painterResource(R.drawable.confirmation_number),
                             contentDescription = "Icon Enrollment"
                         )
                     },
@@ -189,6 +265,7 @@ fun SignUpScreen(navController: NavController) {
                             contentDescription = "Icon Phone"
                         )
                     },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                     modifier = textFieldModifier
                 )
             }
@@ -201,7 +278,7 @@ fun SignUpScreen(navController: NavController) {
                     label = { Text("Recinto") },
                     leadingIcon = {
                         Icon(
-                            painter = painterResource(R.drawable.location_apartament ),
+                            painter = painterResource(R.drawable.location_apartament),
                             contentDescription = "Icon Campus"
                         )
                     },
@@ -257,7 +334,7 @@ fun SignUpScreen(navController: NavController) {
 
             item {
                 Button(
-                    onClick = { navController.navigate(NavScreen.DashboardScreen.name) },
+                    onClick = onSignUpClick,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
@@ -278,16 +355,54 @@ fun SignUpScreen(navController: NavController) {
                     Text(
                         text = "Iniciar Sesión",
                         color = Color(0xFFE45351),
-                        modifier = Modifier.clickable { navController.navigate(NavScreen.LoginScreen.name) }
+                        modifier = Modifier.clickable { onLoginClick() }
                     )
                 }
             }
         }
     }
+
+
+}
+
+
+fun validateSignUpFields(
+    name: String,
+    campus: String,
+    career: String,
+    enrollment: String,
+    phone: String,
+    email: String,
+    password: String,
+    confirmPassword: String
+): ValidationResultField {
+    if (name.isEmpty() || campus.isEmpty() || career.isEmpty() || enrollment.isEmpty() ||
+        phone.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
+    ) {
+        return ValidationResultField(false, "Todos los campos deben estar llenos.")
+    }
+
+    if (!phone.matches(Regex("^[0-9]{10,15}$"))) {
+        return ValidationResultField(false, "El número de teléfono debe ser válido.")
+    }
+
+    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        return ValidationResultField(false, "La dirección de correo electrónico debe ser válida.")
+    }
+
+    if (password.length < 8) {
+        return ValidationResultField(false, "La contraseña debe tener al menos 8 caracteres.")
+    }
+
+    if (password != confirmPassword) {
+        return ValidationResultField(false, "Las contraseñas no coinciden.")
+    }
+
+    return ValidationResultField(true, "Validación exitosa.")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
-    SignUpScreen(rememberNavController())
+    SignUpScreen(rememberNavController(), viewModel())
 }
