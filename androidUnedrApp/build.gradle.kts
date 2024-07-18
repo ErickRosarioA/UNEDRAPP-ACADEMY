@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.googleServices).apply(false)
+    alias(libs.plugins.googleServices)
+    alias(libs.plugins.daggerHiltAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -17,6 +19,9 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
+        //dataBinding = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -47,5 +52,26 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.realtime.database)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.firebase.auth.ktx)
     debugImplementation(libs.compose.ui.tooling)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.google.gson)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.logging)
+
+    implementation(libs.navigation.jetpack.compose)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+    implementation(libs.koin.android)
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+}
+hilt {
+    enableAggregatingTask = true
 }

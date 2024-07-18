@@ -3,39 +3,31 @@ package com.developer.edra.unedrappacademy.android.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.developer.edra.unedrappacademy.Greeting
+import androidx.activity.viewModels
+import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
+import com.developer.edra.unedrappacademy.android.ui.main.MainScreen
+import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
+import com.developer.edra.unedrappacademy.android.ui.selection.SelectionViewModel
+import com.developer.edra.unedrappacademy.android.ui.signup.SignUpViewModel
 import com.developer.edra.unedrappacademy.android.ui.theme.MyApplicationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val selectionViewModel: SelectionViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
+    private val signUpViewModel: SignUpViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    GreetingView(Greeting().greet() +  "SOLO PRUEBA DE ERICK DESARROLLO")
-                }
+                MainScreen(mainViewModel, selectionViewModel, loginViewModel, signUpViewModel)
             }
         }
-    }
-}
 
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("SOLO PRUEBA DE ERICK DESARROLLO")
     }
+
 }
