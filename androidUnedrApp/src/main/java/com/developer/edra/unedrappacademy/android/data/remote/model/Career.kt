@@ -1,4 +1,4 @@
-package com.developer.edra.unedrappacademy.android.data.models
+package com.developer.edra.unedrappacademy.android.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 

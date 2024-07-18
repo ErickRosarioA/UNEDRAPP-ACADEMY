@@ -6,16 +6,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.ui.components.BottomNavigationBar
+import com.developer.edra.unedrappacademy.android.ui.components.CustomTopAppBar
+import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavigationAppGraph
+import com.developer.edra.unedrappacademy.android.utils.currentRoute
 
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    val currentRoute = currentRoute(navController)
+    val showBottomNav = shouldShowBottomBar(navController)
+    val showTopAppBar = shouldShowTopAppBar(currentRoute)
     Scaffold(
+        topBar = {
+            if (showTopAppBar) {
+                val title = getTitleForRoute(currentRoute)
+                CustomTopAppBar(title = title, navController = navController)
+            }
+        },
         bottomBar = {
-            BottomNavigationBar(navController)
+            if (showBottomNav) {
+                BottomNavigationBar(navController)
+            }
         }
     ) { padding ->
         Box(
@@ -24,8 +39,40 @@ fun MainScreen() {
                 .fillMaxSize()
         ) {
             NavigationAppGraph(navController = navController)
-
         }
+    }
+}
 
+@Composable
+fun getTitleForRoute(currentRoute: String?): String {
+    return when (currentRoute) {
+        NavScreen.DashboardScreen.name -> "Unedrapp Academy"
+        NavScreen.ScheduleScreen.name -> "Horario Seleccionado"
+        NavScreen.RatingsScreen.name -> "Notas Período activo"
+        NavScreen.AuditScreen.name -> "Mí Auditoría Académica"
+        else -> ""
+    }
+}
+@Composable
+fun shouldShowBottomBar(navController: NavHostController): Boolean {
+    val currentRoute = currentRoute(navController)
+    return when (currentRoute) {
+        NavScreen.WelcomeScreen.name,
+        NavScreen.LoginScreen.name,
+        NavScreen.SignUpScreen.name -> false
+
+        else -> true
+    }
+}
+
+
+@Composable
+fun shouldShowTopAppBar(currentRoute: String?): Boolean {
+    return when (currentRoute) {
+        NavScreen.DashboardScreen.name,
+        NavScreen.ScheduleScreen.name,
+        NavScreen.RatingsScreen.name,
+        NavScreen.AuditScreen.name -> true
+        else -> false
     }
 }

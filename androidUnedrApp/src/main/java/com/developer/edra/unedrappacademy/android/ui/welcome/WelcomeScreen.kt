@@ -31,10 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.R
+import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -130,7 +133,7 @@ fun WelcomeScreen() {
                     )
                     Spacer(modifier = Modifier.height(24.dp))
                     OutlinedButton(
-                        onClick = { /* TODO: Add action */ },
+                        onClick = { navController.navigate(NavScreen.LoginScreen.name) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
@@ -145,7 +148,7 @@ fun WelcomeScreen() {
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
-                        onClick = { /* TODO: Add action */ },
+                        onClick = { navController.navigate(NavScreen.SignUpScreen.name) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
@@ -177,5 +180,5 @@ fun WelcomeScreen() {
 @Preview(showBackground = true)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen()
+    WelcomeScreen(rememberNavController())
 }

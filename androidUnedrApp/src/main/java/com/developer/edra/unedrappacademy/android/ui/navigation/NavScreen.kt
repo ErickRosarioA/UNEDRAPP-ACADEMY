@@ -8,5 +8,4 @@ enum class NavScreen {
     RatingsScreen,
     AuditScreen,
     ScheduleScreen,
-
 }
