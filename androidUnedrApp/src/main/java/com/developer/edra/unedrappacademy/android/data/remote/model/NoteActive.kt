@@ -1,9 +1,18 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class NoteActive(
-    @SerializedName("Id")  val id: Int = 0,
-    @SerializedName("EstudianteId") val studentId: Int = 0,
-    @SerializedName("Notas") val notes: List<NoteDetail> = emptyList()
-)
+    @get:PropertyName("Id")
+    val id: Int = 0,
+
+    @get:PropertyName("EstudianteId")
+    val studentId: Int = 0,
+
+    @get:PropertyName("Notas")
+    val notes: List<NoteDetail> = emptyList()
+) : Parcelable

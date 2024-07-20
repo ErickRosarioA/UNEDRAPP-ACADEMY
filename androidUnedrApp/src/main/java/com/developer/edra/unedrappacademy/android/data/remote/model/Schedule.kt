@@ -1,14 +1,33 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class Schedule(
-    @SerializedName("Id") val id: Int = 0,
-    @SerializedName("AsignaturaId") val subjectId: Int = 0,
-    @SerializedName("Dia") val day: String = "",
-    @SerializedName("Aula") val classroom: String = "",
-    @SerializedName("Modalidad") val modality: String = "",
-    @SerializedName("HoraInicio") val startTime: String = "",
-    @SerializedName("HoraFin") val endTime: String = "",
-    @SerializedName("Profesor") val teacher: String = ""
-)
+    @get:PropertyName("Id")
+    val id: Int = 0,
+
+    @get:PropertyName("AsignaturaId")
+    val subjectId: Int = 0,
+
+    @get:PropertyName("Dia")
+    val day: String = "",
+
+    @get:PropertyName("Aula")
+    val classroom: String = "",
+
+    @get:PropertyName("Modalidad")
+    val modality: String = "",
+
+    @get:PropertyName("HoraInicio")
+    val startTime: String = "",
+
+    @get:PropertyName("HoraFin")
+    val endTime: String = "",
+
+    @get:PropertyName("Profesor")
+    val teacher: String = ""
+) : Parcelable

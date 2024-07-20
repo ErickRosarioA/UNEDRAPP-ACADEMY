@@ -1,17 +1,41 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
-data class Career (
-    @SerializedName("Id") val id: Int = 0,
-    @SerializedName("Nombre") val name: String = "",
-    @SerializedName("Descripción") val description: String = "",
-    @SerializedName("TotalPeriodosAcademicosCuatrimestrales") val totalQuarterlyAcademicPeriods: Int = 0,
-    @SerializedName("TotalAsignaturas") val totalSubjects: Int = 0,
-    @SerializedName("CreditoTotal") val totalCredits: Int = 0,
-    @SerializedName("TotalHorasTeoricas") val totalTheoryHours: Int = 0,
-    @SerializedName("TotalHorasPracticas") val totalPracticalHours: Int = 0,
-    @SerializedName("TotalHorasInvestigacion") val totalResearchHours: Int = 0,
-    @SerializedName("TotalHoras") val totalHours: Int = 0,
-    @SerializedName("Asignaturas") val subjects: List<Subject> = listOf()
-)
+@Parcelize
+data class Career(
+    @get:PropertyName("Id")
+    val id: Int = 0,
+
+    @get:PropertyName("Nombre")
+    val name: String = "",
+
+    @get:PropertyName("Descripción")
+    val description: String = "",
+
+    @get:PropertyName("TotalPeriodosAcademicosCuatrimestrales")
+    val totalQuarterlyAcademicPeriods: Int = 0,
+
+    @get:PropertyName("TotalAsignaturas")
+    val totalSubjects: Int = 0,
+
+    @get:PropertyName("CreditoTotal")
+    val totalCredits: Int = 0,
+
+    @get:PropertyName("TotalHorasTeoricas")
+    val totalTheoryHours: Int = 0,
+
+    @get:PropertyName("TotalHorasPracticas")
+    val totalPracticalHours: Int = 0,
+
+    @get:PropertyName("TotalHorasInvestigacion")
+    val totalResearchHours: Int = 0,
+
+    @get:PropertyName("TotalHoras")
+    val totalHours: Int = 0,
+
+    @get:PropertyName("Asignaturas")
+    val subjects: List<Subject> = listOf()
+) : Parcelable

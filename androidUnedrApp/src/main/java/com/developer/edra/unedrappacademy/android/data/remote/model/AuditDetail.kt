@@ -1,11 +1,23 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class AuditDetail(
-    @SerializedName("AsignaturaId") val subjectId: Int = 0,
-    @SerializedName("Estado") val status: String = "",
-    @SerializedName("HorarioId") val scheduleId: Int = 0,
-    @SerializedName("IdNota")val noteId: Int = 0,
-    @SerializedName("PeriodoId") val periodId: Int = 0
-)
+    @get:PropertyName("AsignaturaId")
+    val subjectId: Int = 0,
+
+    @get:PropertyName("Estado")
+    val status: String = "",
+
+    @get:PropertyName("HorarioId")
+    val scheduleId: Int = 0,
+
+    @get:PropertyName("IdNota")
+    val noteId: Int = 0,
+
+    @get:PropertyName("PeriodoId")
+    val periodId: Int = 0
+) : Parcelable

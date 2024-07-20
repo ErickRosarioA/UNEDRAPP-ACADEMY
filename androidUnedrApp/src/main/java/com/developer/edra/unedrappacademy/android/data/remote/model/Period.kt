@@ -1,10 +1,21 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class Period(
-    @SerializedName("Id") val id: Int = 0,
-    @SerializedName("Codigo") val code: String = "",
-    @SerializedName("Meses") val months: String = "",
-    @SerializedName("Año") val year: Int = 0
-)
+    @get:PropertyName("Id")
+    val id: Int = 0,
+
+    @get:PropertyName("Codigo")
+    val code: String = "",
+
+    @get:PropertyName("Meses")
+    val months: String = "",
+
+    @get:PropertyName("Año")
+    val year: Int = 0
+) : Parcelable
