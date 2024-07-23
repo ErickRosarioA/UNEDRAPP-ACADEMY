@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.ui.components.BottomNavigationBar
 import com.developer.edra.unedrappacademy.android.ui.components.CustomTopAppBar
+import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel
 import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavigationAppGraph
@@ -22,6 +23,7 @@ import com.developer.edra.unedrappacademy.android.utils.currentRoute
 fun MainScreen(
     mainViewModel: MainViewModel,
     selectionViewModel: SelectionViewModel,
+    dashboardViewModel: DashboardViewModel,
     loginViewModel: LoginViewModel,
     signUpViewModel: SignUpViewModel
 ) {
@@ -49,7 +51,7 @@ fun MainScreen(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            NavigationAppGraph(navController, selectionViewModel, loginViewModel, signUpViewModel)
+            NavigationAppGraph(navController, selectionViewModel, mainViewModel,dashboardViewModel,loginViewModel, signUpViewModel)
         }
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name" translatable="false">UNEDRAPP ACADEMY</string>
+    <string name="empty_text" translatable="false"> </string>
 </resources>

@@ -7,8 +7,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.developer.edra.unedrappacademy.android.ui.audit.AuditScreen
 import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardScreen
+import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel
 import com.developer.edra.unedrappacademy.android.ui.login.LoginScreen
 import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
+import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.ui.ratings.RatingsScreen
 import com.developer.edra.unedrappacademy.android.ui.schedule.ScheduleScreen
 import com.developer.edra.unedrappacademy.android.ui.selection.SelectionScreen
@@ -21,6 +23,8 @@ import com.developer.edra.unedrappacademy.android.ui.welcome.WelcomeScreen
 fun NavigationAppGraph(
     navController: NavHostController,
     selectionViewModel: SelectionViewModel,
+    mainViewModel: MainViewModel,
+    dashboardViewModel: DashboardViewModel,
     loginViewModel: LoginViewModel,
     signUpViewModel: SignUpViewModel
 ) {
@@ -44,7 +48,7 @@ fun NavigationAppGraph(
         }
         composable(NavScreen.DashboardScreen.name) {
             BackHandler(true) {}
-            DashboardScreen()
+            DashboardScreen(mainViewModel,dashboardViewModel, dashboardViewModel::onUIEvent)
         }
         composable(NavScreen.ScheduleScreen.name) {
             BackHandler(true) {}

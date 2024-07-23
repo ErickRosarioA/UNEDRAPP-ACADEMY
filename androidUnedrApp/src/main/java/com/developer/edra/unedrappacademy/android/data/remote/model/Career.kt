@@ -37,5 +37,5 @@ data class Career(
     val totalHours: Int = 0,
 
     @get:PropertyName("Asignaturas")
-    val subjects: List<Subject> = listOf()
+    val subjects:  List<Subject> = listOf()
 ) : Parcelable
