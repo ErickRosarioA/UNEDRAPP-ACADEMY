@@ -6,18 +6,18 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AuditDetail(
-    @get:PropertyName("AsignaturaId")
-    val subjectId: Int = 0,
+    @get:PropertyName("AsignaturaId") @set:PropertyName("AsignaturaId")
+    var subjectId: Int = 0,
 
-    @get:PropertyName("Estado")
-    val status: String = "",
+    @get:PropertyName("Estado") @set:PropertyName("Estado")
+    var status: String = "",
 
-    @get:PropertyName("HorarioId")
-    val scheduleId: Int = 0,
+    @get:PropertyName("HorarioId") @set:PropertyName("HorarioId")
+    var scheduleId: Int = 0,
 
-    @get:PropertyName("IdNota")
-    val noteId: Int = 0,
+    @get:PropertyName("IdNota") @set:PropertyName("IdNota")
+    var noteId: Int = 0,
 
-    @get:PropertyName("PeriodoId")
-    val periodId: Int = 0
+    @get:PropertyName("PeriodoId") @set:PropertyName("PeriodoId")
+    var periodId: Int = 0
 ) : Parcelable

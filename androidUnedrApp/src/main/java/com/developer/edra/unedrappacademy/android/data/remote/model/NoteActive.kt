@@ -7,12 +7,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class NoteActive(
-    @get:PropertyName("Id")
-    val id: Int = 0,
+    @get:PropertyName("Id") @set:PropertyName("Id")
+    var id: Int = 0,
 
-    @get:PropertyName("EstudianteId")
-    val studentId: Int = 0,
+    @get:PropertyName("EstudianteId") @set:PropertyName("EstudianteId")
+    var studentId: Int = 0,
 
-    @get:PropertyName("Notas")
-    val notes: List<NoteDetail> = emptyList()
+    @get:PropertyName("Notas") @set:PropertyName("Notas")
+    var notes: List<NoteDetail> = emptyList()
 ) : Parcelable

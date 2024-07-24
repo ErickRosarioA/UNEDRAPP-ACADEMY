@@ -1,4 +1,4 @@
-package com.developer.edra.unedrappacademy.android.data.remote.model
+package com.developer.edra.unedrappacademy.android.ui.dashboard
 
 import android.os.Parcelable
 import com.google.firebase.database.PropertyName

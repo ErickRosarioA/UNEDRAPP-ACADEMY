@@ -7,27 +7,27 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Schedule(
-    @get:PropertyName("Id")
-    val id: Int = 0,
+    @get:PropertyName("Id") @set:PropertyName("Id")
+    var id: Int = 0,
 
-    @get:PropertyName("AsignaturaId")
-    val subjectId: Int = 0,
+    @get:PropertyName("AsignaturaId") @set:PropertyName("AsignaturaId")
+    var subjectId: Int = 0,
 
-    @get:PropertyName("Dia")
-    val day: String = "",
+    @get:PropertyName("Dia") @set:PropertyName("Dia")
+    var day: String = "",
 
-    @get:PropertyName("Aula")
-    val classroom: String = "",
+    @get:PropertyName("Aula") @set:PropertyName("Aula")
+    var classroom: String = "",
 
-    @get:PropertyName("Modalidad")
-    val modality: String = "",
+    @get:PropertyName("Modalidad") @set:PropertyName("Modalidad")
+    var modality: String = "",
 
-    @get:PropertyName("HoraInicio")
-    val startTime: String = "",
+    @get:PropertyName("HoraInicio") @set:PropertyName("HoraInicio")
+    var startTime: String = "",
 
-    @get:PropertyName("HoraFin")
-    val endTime: String = "",
+    @get:PropertyName("HoraFin") @set:PropertyName("HoraFin")
+    var endTime: String = "",
 
-    @get:PropertyName("Profesor")
-    val teacher: String = ""
+    @get:PropertyName("Profesor") @set:PropertyName("Profesor")
+    var teacher: String = ""
 ) : Parcelable
