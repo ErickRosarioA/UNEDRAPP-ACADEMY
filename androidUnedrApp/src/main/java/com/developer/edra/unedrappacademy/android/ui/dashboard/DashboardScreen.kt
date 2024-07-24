@@ -3,7 +3,6 @@ package com.developer.edra.unedrappacademy.android.ui.dashboard
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +21,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.developer.edra.unedrappacademy.android.data.remote.model.Career
@@ -43,19 +45,23 @@ fun DashboardScreen(
     }
 
     Column(
+
         modifier = Modifier
             .padding(16.dp)
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.secondary)
+
     ) {
         Text(
             text = "Panel Estudiantil",
             fontSize = 24.sp,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp),
+            fontWeight = FontWeight.SemiBold
         )
         StudentInfoCard(uiState.student, uiState.career)
 
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -65,25 +71,8 @@ fun DashboardScreen(
             InfoCard(label = "Índice", value = "3.9")
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "Asignaturas seleccionadas 2024-2",
-            fontSize = 20.sp,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-
-        LazyColumn {
-            items(3) {
-                SubjectRow(
-                    codigo = "IDS-362",
-                    asignatura = "PROGRAMACIÓN MÓVIL 1",
-                    seccion = "001"
-                )
-            }
-        }
-
-
+        Spacer(modifier = Modifier.height(8.dp))
+        SubjectCard()
     }
 }
 
@@ -91,17 +80,22 @@ fun DashboardScreen(
 fun StudentInfoCard(student: Student, career: Career) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
+            defaultElevation = 4.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 16.dp)
+            .padding(bottom = 8.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = "Información del estudiante",
                 fontSize = 20.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp),
+                fontWeight = FontWeight.SemiBold
             )
             Text(text = "Matrícula: ${student.enrollment}")
             Text(text = "Nombres: ${student.firstName} ${student.lastName}")
@@ -118,9 +112,12 @@ fun StudentInfoCard(student: Student, career: Career) {
 fun InfoCard(label: String, value: String) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
+            defaultElevation = 4.dp
         ),
-
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
+        ),
         modifier = Modifier
             .padding(4.dp)
     ) {
@@ -129,7 +126,7 @@ fun InfoCard(label: String, value: String) {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = label, fontSize = 18.sp)
+            Text(text = label, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             Text(text = value, fontSize = 24.sp, color = MaterialTheme.colorScheme.primary)
         }
     }
@@ -140,10 +137,66 @@ fun SubjectRow(codigo: String, asignatura: String, seccion: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(vertical = 8.dp)
     ) {
         Text(text = codigo, modifier = Modifier.weight(1f))
         Text(text = asignatura, modifier = Modifier.weight(3f))
-        Text(text = seccion, modifier = Modifier.weight(1f))
+        // Text(text = seccion, modifier = Modifier.weight(1f))
+    }
+}
+
+
+@Composable
+fun SubjectCard() {
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        modifier = Modifier
+            .padding(4.dp)
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Asignaturas seleccionadas",
+                fontSize = 18.sp,
+                modifier = Modifier.padding(bottom = 8.dp),
+                fontWeight = FontWeight.SemiBold
+            )
+            HorizontalDivider(thickness = 1.dp, color = Color.Gray)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
+                Text(
+                    text = "Código",
+                    modifier = Modifier.weight(1f),
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    text = "Asignatura",
+                    modifier = Modifier.weight(3f),
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+
+            LazyColumn {
+                items(6) { index ->
+                    HorizontalDivider(thickness = 1.dp, color = Color.Gray)
+                    SubjectRow(
+                        codigo = "IDS-362",
+                        asignatura = "PROGRAMACIÓN MÓVIL 1",
+                        seccion = "001"
+                    )
+
+                }
+            }
+        }
     }
 }

@@ -10,7 +10,6 @@ import com.developer.edra.unedrappacademy.android.data.remote.model.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface DataRepository {
-    fun getStudentById(id: Int): Flow<Resource<Student>>
     fun getStudentByEmail(email: String): Flow<Resource<Student>>
     fun getCareerById(id: Int): Flow<Resource<Career>>
     fun getSchedulesByStudentId(studentId: Int): Flow<Resource<List<Schedule>>>

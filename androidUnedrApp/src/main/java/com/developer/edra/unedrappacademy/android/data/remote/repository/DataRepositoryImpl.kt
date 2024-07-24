@@ -38,22 +38,7 @@ class DataRepositoryImpl @Inject constructor(
         awaitClose { db.getReference("students").removeEventListener(listener) }
     }
 
-    override fun getStudentById(id: Int) = callbackFlow {
-        trySend(Resource.Loading())
-        val listener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val student = snapshot.getValue(Student::class.java)
-                val result = student?.let { Resource.Success(it) } ?: Resource.Error("Student not found")
-                trySend(result).isSuccess
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                trySend(Resource.Error(error.message)).isSuccess
-            }
-        }
-        db.getReference("students").child(id.toString()).addListenerForSingleValueEvent(listener)
-        awaitClose { db.getReference("students").child(id.toString()).removeEventListener(listener) }
-    }
 
     override fun getCareerById(id: Int) = callbackFlow {
         trySend(Resource.Loading())
