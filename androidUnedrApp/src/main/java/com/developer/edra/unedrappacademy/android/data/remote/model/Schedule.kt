@@ -10,24 +10,10 @@ data class Schedule(
     @get:PropertyName("Id") @set:PropertyName("Id")
     var id: Int = 0,
 
-    @get:PropertyName("AsignaturaId") @set:PropertyName("AsignaturaId")
-    var subjectId: Int = 0,
+    @get:PropertyName("estudianteId") @set:PropertyName("estudianteId")
+    var studentId: Int = 0,
 
-    @get:PropertyName("Dia") @set:PropertyName("Dia")
-    var day: String = "",
+    @get:PropertyName("Horario") @set:PropertyName("Horario")
+    var scheduleDetail: List<ScheduleDetail> = listOf(),
 
-    @get:PropertyName("Aula") @set:PropertyName("Aula")
-    var classroom: String = "",
-
-    @get:PropertyName("Modalidad") @set:PropertyName("Modalidad")
-    var modality: String = "",
-
-    @get:PropertyName("HoraInicio") @set:PropertyName("HoraInicio")
-    var startTime: String = "",
-
-    @get:PropertyName("HoraFin") @set:PropertyName("HoraFin")
-    var endTime: String = "",
-
-    @get:PropertyName("Profesor") @set:PropertyName("Profesor")
-    var teacher: String = ""
-) : Parcelable
+    ) : Parcelable

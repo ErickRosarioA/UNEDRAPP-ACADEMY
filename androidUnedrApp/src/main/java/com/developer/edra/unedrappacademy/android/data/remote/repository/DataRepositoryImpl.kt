@@ -86,18 +86,20 @@ class DataRepositoryImpl @Inject constructor(
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val schedules = snapshot.children.mapNotNull { it.getValue(Schedule::class.java) }
-                trySend(Resource.Success(schedules)).isSuccess
+                    .firstOrNull { it.studentId == studentId }
+                val result =
+                    schedules?.let { Resource.Success(it) } ?: Resource.Error("Subject not found")
+                trySend(result).isSuccess
             }
 
             override fun onCancelled(error: DatabaseError) {
                 trySend(Resource.Error(error.message)).isSuccess
             }
         }
-        db.getReference("schedules").orderByChild("studentId").equalTo(studentId.toDouble())
+        db.getReference("schedules")
             .addListenerForSingleValueEvent(listener)
         awaitClose {
-            db.getReference("schedules").orderByChild("studentId").equalTo(studentId.toDouble())
-                .removeEventListener(listener)
+            db.getReference("schedules").removeEventListener(listener)
         }
     }
 
@@ -137,12 +139,15 @@ class DataRepositoryImpl @Inject constructor(
         awaitClose { db.getReference("periods").removeEventListener(listener) }
     }
 
-    override fun getAudits() = callbackFlow {
+    override fun getAuditsById(id: Int) = callbackFlow {
         trySend(Resource.Loading())
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val audits = snapshot.children.mapNotNull { it.getValue(Audit::class.java) }
-                trySend(Resource.Success(audits)).isSuccess
+                    .firstOrNull { it.id == id }
+                val result =
+                    audits?.let { Resource.Success(it) } ?: Resource.Error("Auditoria not found")
+                trySend(result).isSuccess
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -2,6 +2,7 @@ package com.developer.edra.unedrappacademy.android.ui.dashboard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,11 +23,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.developer.edra.unedrappacademy.android.R
 import com.developer.edra.unedrappacademy.android.data.remote.model.Career
 import com.developer.edra.unedrappacademy.android.data.remote.model.Student
+import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 
 
@@ -39,40 +45,56 @@ fun DashboardScreen(
     val uiState by dashboardViewModel.uiState.collectAsState()
     val userInfo by mainViewModel.userLogged.collectAsState()
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(uiState) {
         onEvent(DashboardViewModel.UIEvent.OnGetStudentByEmail(userInfo.email))
 
     }
 
-    Column(
-
+    Box(
         modifier = Modifier
-            .padding(16.dp)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.secondary)
-
     ) {
-        Text(
-            text = "Panel Estudiantil",
-            fontSize = 24.sp,
-            modifier = Modifier.padding(bottom = 16.dp),
-            fontWeight = FontWeight.SemiBold
-        )
-        StudentInfoCard(uiState.student, uiState.career)
+        Column(
 
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxSize()
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            InfoCard(label = "Asignaturas Aprobadas", value = "50/64")
-            InfoCard(label = "Índice", value = "3.9")
-        }
+            Text(
+                text = "Panel Estudiantil",
+                fontSize = 24.sp,
+                modifier = Modifier.padding(bottom = 16.dp),
+                fontWeight = FontWeight.SemiBold
+            )
+            StudentInfoCard(uiState.student, uiState.career)
 
-        Spacer(modifier = Modifier.height(8.dp))
-        SubjectCard()
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                InfoCard(
+                    label = "Asignaturas Aprobadas",
+                    value = uiState.subjectCount.ifEmpty {
+                        stringResource(
+                            R.string.guion_data
+                        )
+                    }
+                )
+                InfoCard(label = "Índice", value = uiState.averageString.ifEmpty {
+                    stringResource(
+                        R.string.guion_data
+                    )
+                })
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            SubjectCard(uiState.subjectSelectedList)
+        }
     }
 }
 
@@ -80,7 +102,7 @@ fun DashboardScreen(
 fun StudentInfoCard(student: Student, career: Career) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
+            defaultElevation = 2.dp
         ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondary,
@@ -112,7 +134,7 @@ fun StudentInfoCard(student: Student, career: Career) {
 fun InfoCard(label: String, value: String) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
+            defaultElevation = 2.dp
         ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondary,
@@ -133,7 +155,7 @@ fun InfoCard(label: String, value: String) {
 }
 
 @Composable
-fun SubjectRow(codigo: String, asignatura: String, seccion: String) {
+fun SubjectRow(codigo: String, asignatura: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -141,15 +163,14 @@ fun SubjectRow(codigo: String, asignatura: String, seccion: String) {
     ) {
         Text(text = codigo, modifier = Modifier.weight(1f))
         Text(text = asignatura, modifier = Modifier.weight(3f))
-        // Text(text = seccion, modifier = Modifier.weight(1f))
     }
 }
 
 
 @Composable
-fun SubjectCard() {
+fun SubjectCard(list: List<Subject>, modifier: Modifier = Modifier) {
     ElevatedCard(
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth(),
@@ -185,15 +206,30 @@ fun SubjectCard() {
                     fontWeight = FontWeight.SemiBold
                 )
             }
-
-            LazyColumn {
-                items(6) { index ->
-                    HorizontalDivider(thickness = 1.dp, color = Color.Gray)
-                    SubjectRow(
-                        codigo = "IDS-362",
-                        asignatura = "PROGRAMACIÓN MÓVIL 1",
-                        seccion = "001"
+            HorizontalDivider(thickness = 1.dp, color = Color.Gray)
+            if (list.isEmpty()) {
+                Text(
+                    text = "NO DISPONIBLE",
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
                     )
+                )
+            } else {
+                LazyColumn {
+                    list.map {
+                        item {
+                            SubjectRow(
+                                codigo = it.code,
+                                asignatura = it.subjectName
+                            )
+                        }
+                    }
 
                 }
             }

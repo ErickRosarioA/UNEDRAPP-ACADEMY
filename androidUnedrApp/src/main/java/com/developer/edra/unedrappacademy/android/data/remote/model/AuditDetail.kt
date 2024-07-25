@@ -18,6 +18,9 @@ data class AuditDetail(
     @get:PropertyName("IdNota") @set:PropertyName("IdNota")
     var noteId: Int = 0,
 
+    @get:PropertyName("Nota") @set:PropertyName("Nota")
+    var note: Int = 0,
+
     @get:PropertyName("PeriodoId") @set:PropertyName("PeriodoId")
     var periodId: Int = 0
 ) : Parcelable

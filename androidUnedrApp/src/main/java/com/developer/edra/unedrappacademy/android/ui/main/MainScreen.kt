@@ -14,6 +14,7 @@ import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewMode
 import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavigationAppGraph
+import com.developer.edra.unedrappacademy.android.ui.schedule.ScheduleViewModel
 import com.developer.edra.unedrappacademy.android.ui.selection.SelectionViewModel
 import com.developer.edra.unedrappacademy.android.ui.signup.SignUpViewModel
 import com.developer.edra.unedrappacademy.android.utils.currentRoute
@@ -25,7 +26,8 @@ fun MainScreen(
     selectionViewModel: SelectionViewModel,
     dashboardViewModel: DashboardViewModel,
     loginViewModel: LoginViewModel,
-    signUpViewModel: SignUpViewModel
+    signUpViewModel: SignUpViewModel,
+    scheduleViewModel: ScheduleViewModel
 ) {
     val navController = rememberNavController()
     val currentRoute = currentRoute(navController)
@@ -51,7 +53,7 @@ fun MainScreen(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            NavigationAppGraph(navController, selectionViewModel, mainViewModel,dashboardViewModel,loginViewModel, signUpViewModel)
+            NavigationAppGraph(navController, selectionViewModel, mainViewModel,dashboardViewModel,loginViewModel, signUpViewModel,scheduleViewModel)
         }
     }
 }

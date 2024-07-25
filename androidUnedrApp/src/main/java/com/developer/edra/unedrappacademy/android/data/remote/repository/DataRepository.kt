@@ -14,9 +14,9 @@ interface DataRepository {
     fun getStudentByEmail(email: String): Flow<Resource<Student>>
     fun getCareerById(id: Int): Flow<Resource<Career>>
     fun getSubjectById(subjectId: Int, careerId: Int): Flow<Resource<Subject>>
-    fun getSchedulesByStudentId(studentId: Int): Flow<Resource<List<Schedule>>>
+    fun getSchedulesByStudentId(studentId: Int): Flow<Resource<Schedule>>
     fun getPeriodsById(id: Int):Flow<Resource<Period>>
     fun getPeriods(): Flow<Resource<List<Period>>>
-    fun getAudits(): Flow<Resource<List<Audit>>>
+    fun getAuditsById(id: Int): Flow<Resource<Audit>>
     fun getActiveNotes(): Flow<Resource<List<NoteActive>>>
 }
