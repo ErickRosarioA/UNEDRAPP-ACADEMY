@@ -19,4 +19,5 @@ interface DataRepository {
     fun getPeriods(): Flow<Resource<List<Period>>>
     fun getAuditsById(id: Int): Flow<Resource<Audit>>
     fun getActiveNotes(): Flow<Resource<List<NoteActive>>>
+    fun getActiveNotesById(studentId: Int): Flow<Resource<NoteActive>>
 }

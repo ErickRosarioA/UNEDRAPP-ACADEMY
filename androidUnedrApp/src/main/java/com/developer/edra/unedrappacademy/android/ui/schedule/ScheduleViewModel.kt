@@ -16,6 +16,7 @@ import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
 import com.developer.edra.unedrappacademy.android.data.remote.repository.DataRepository
 import com.developer.edra.unedrappacademy.android.ui.base.BaseUiState
 import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel.UIEvent
+import com.developer.edra.unedrappacademy.android.utils.getMonthRange
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -58,15 +59,6 @@ class ScheduleViewModel @Inject constructor(private val dataRepository: DataRepo
     }
 
 
-    private fun getMonthRange(): String {
-        val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
-        return when (currentMonth) {
-            in 1..4 -> "Enero-Abril"
-            in 5..8 -> "Mayo-Agosto"
-            in 9..12 -> "Septiembre-Diciembre"
-            else -> ""
-        }
-    }
     private fun fetchPeriods() {
         viewModelScope.launch {
             dataRepository.getPeriods().collect { resource ->

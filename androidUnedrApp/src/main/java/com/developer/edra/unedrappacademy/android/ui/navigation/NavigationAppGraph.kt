@@ -12,6 +12,7 @@ import com.developer.edra.unedrappacademy.android.ui.login.LoginScreen
 import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.ui.ratings.RatingsScreen
+import com.developer.edra.unedrappacademy.android.ui.ratings.RatingsViewModel
 import com.developer.edra.unedrappacademy.android.ui.schedule.ScheduleScreen
 import com.developer.edra.unedrappacademy.android.ui.schedule.ScheduleViewModel
 import com.developer.edra.unedrappacademy.android.ui.selection.SelectionScreen
@@ -28,7 +29,8 @@ fun NavigationAppGraph(
     dashboardViewModel: DashboardViewModel,
     loginViewModel: LoginViewModel,
     signUpViewModel: SignUpViewModel,
-    scheduleViewModel: ScheduleViewModel
+    scheduleViewModel: ScheduleViewModel,
+    ratingsViewModel: RatingsViewModel
 ) {
 
     NavHost(navController = navController, startDestination = NavScreen.SelectionScreen.name) {
@@ -50,15 +52,15 @@ fun NavigationAppGraph(
         }
         composable(NavScreen.DashboardScreen.name) {
             BackHandler(true) {}
-            DashboardScreen(mainViewModel,dashboardViewModel, dashboardViewModel::onUIEvent)
+            DashboardScreen(mainViewModel, dashboardViewModel, dashboardViewModel::onUIEvent)
         }
         composable(NavScreen.ScheduleScreen.name) {
             BackHandler(true) {}
-            ScheduleScreen(mainViewModel,scheduleViewModel, scheduleViewModel::onUIEvent)
+            ScheduleScreen(mainViewModel, scheduleViewModel, scheduleViewModel::onUIEvent)
         }
         composable(NavScreen.RatingsScreen.name) {
             BackHandler(true) {}
-            RatingsScreen()
+            RatingsScreen(mainViewModel, ratingsViewModel, ratingsViewModel::onUIEvent)
         }
         composable(NavScreen.AuditScreen.name) {
             BackHandler(true) {}

@@ -174,4 +174,25 @@ class DataRepositoryImpl @Inject constructor(
         db.getReference("active_notes").addListenerForSingleValueEvent(listener)
         awaitClose { db.getReference("active_notes").removeEventListener(listener) }
     }
+
+    override fun getActiveNotesById(studentId: Int) = callbackFlow {
+        trySend(Resource.Loading())
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val activeNotes =
+                    snapshot.children.mapNotNull { it.getValue(NoteActive::class.java) }
+                        .firstOrNull { it.studentId == studentId }
+
+                val result =
+                    activeNotes?.let { Resource.Success(it) } ?: Resource.Error("Nota not found")
+                trySend(result).isSuccess
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(Resource.Error(error.message)).isSuccess
+            }
+        }
+        db.getReference("active_notes").addListenerForSingleValueEvent(listener)
+        awaitClose { db.getReference("active_notes").removeEventListener(listener) }
+    }
 }
