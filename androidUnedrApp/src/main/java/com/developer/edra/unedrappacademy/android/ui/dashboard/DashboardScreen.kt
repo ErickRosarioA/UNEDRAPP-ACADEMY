@@ -34,6 +34,7 @@ import com.developer.edra.unedrappacademy.android.data.remote.model.Career
 import com.developer.edra.unedrappacademy.android.data.remote.model.Student
 import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
+import com.developer.edra.unedrappacademy.android.utils.capitalizeEachWord
 
 
 @Composable
@@ -226,7 +227,7 @@ fun SubjectCard(list: List<Subject>, modifier: Modifier = Modifier) {
                         item {
                             SubjectRow(
                                 codigo = it.code,
-                                asignatura = it.subjectName
+                                asignatura = it.subjectName.capitalizeEachWord()
                             )
                         }
                     }

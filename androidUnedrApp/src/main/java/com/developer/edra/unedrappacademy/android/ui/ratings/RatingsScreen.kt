@@ -21,6 +21,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.developer.edra.unedrappacademy.android.R
 import com.developer.edra.unedrappacademy.android.data.remote.model.NoteDetail
 import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
+import com.developer.edra.unedrappacademy.android.ui.dialogs.LegendRatingsDialog
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.utils.capitalizeEachWord
 
@@ -44,6 +48,8 @@ fun RatingsScreen(
 ) {
     val uiState by ratingsViewModel.uiState.collectAsState()
     val userInfo by mainViewModel.userLogged.collectAsState()
+
+    var showDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(uiState) {
         onEvent(RatingsViewModel.UIEvent.OnGetScheduleByEmail(userInfo.email))
@@ -72,7 +78,7 @@ fun RatingsScreen(
 
                 IconButton(
                     onClick = {
-                        //
+                        showDialog = true
                     }
                 ) {
                     Icon(
@@ -109,6 +115,10 @@ fun RatingsScreen(
 
 
         }
+
+        if (showDialog) {
+            LegendRatingsDialog(onDismiss = { showDialog = false })
+        }
     }
 
 }
@@ -135,7 +145,7 @@ fun CardItemRatings(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-            .padding(8.dp),
+                .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
