@@ -1,17 +1,53 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Student(
-    @SerializedName("Id") val id: Int = 0,
-    @SerializedName("Nombres") val firstName: String = "",
-    @SerializedName("Apellidos") val lastName: String = "",
-    @SerializedName("EstatusUniversitario") val universityStatus: Boolean = false,
-    @SerializedName("Recinto") val campus: String = "",
-    @SerializedName("Matricula") val enrollment: String = "",
-    @SerializedName("Correo") val email: String = "",
-    @SerializedName("Telefono") val phone: String = "",
-    @SerializedName("CarreraId") val careerId: Int = 0,
-    @SerializedName("AuditoriaId") val auditId: Int = 0,
-    @SerializedName("NotasActivasId") val activeGradesId: Int = 0
-)
+    @get:PropertyName("Id")
+    @set:PropertyName("Id")
+    var id: Int = 0,
+
+    @get:PropertyName("Nombres")
+    @set:PropertyName("Nombres")
+    var firstName: String = "",
+
+    @get:PropertyName("Apellidos")
+    @set:PropertyName("Apellidos")
+    var lastName: String = "",
+
+    @get:PropertyName("EstatusUniversitario")
+    @set:PropertyName("EstatusUniversitario")
+    var universityStatus: Boolean = false,
+
+    @get:PropertyName("Recinto")
+    @set:PropertyName("Recinto")
+    var campus: String = "",
+
+    @get:PropertyName("Matricula")
+    @set:PropertyName("Matricula")
+    var enrollment: String = "",
+
+    @get:PropertyName("Correo")
+    @set:PropertyName("Correo")
+    var email: String = "",
+
+    @get:PropertyName("Telefono")
+    @set:PropertyName("Telefono")
+    var phone: String = "",
+
+    @get:PropertyName("CarreraId")
+    @set:PropertyName("CarreraId")
+    var careerId: Int = 0,
+
+    @get:PropertyName("AuditoriaId")
+    @set:PropertyName("AuditoriaId")
+    var auditId: Int = 0,
+
+    @get:PropertyName("NotasActivasId")
+    @set:PropertyName("NotasActivasId")
+    var activeGradesId: Int = 0
+) : Parcelable
+

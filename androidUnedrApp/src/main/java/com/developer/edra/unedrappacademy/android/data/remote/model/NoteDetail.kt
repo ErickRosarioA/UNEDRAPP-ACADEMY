@@ -1,14 +1,33 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class NoteDetail(
-    @SerializedName("Id") val id: Int = 0,
-    @SerializedName("AsignaturaId") val subjectId: Int = 0,
-    @SerializedName("P1") val p1: Int = 0,
-    @SerializedName("P2") val p2: Int = 0,
-    @SerializedName("PA") val pa: Int = 0,
-    @SerializedName("AS") val ass: Int = 0,
-    @SerializedName("NotaTotal") val totalNote: Int = 0,
-    @SerializedName("Literal") val literal: String = ""
-)
+    @get:PropertyName("Id") @set:PropertyName("Id")
+    var id: Int = 0,
+
+    @get:PropertyName("AsignaturaId") @set:PropertyName("AsignaturaId")
+    var subjectId: Int = 0,
+
+    @get:PropertyName("P1") @set:PropertyName("P1")
+    var p1: Int = 0,
+
+    @get:PropertyName("P2") @set:PropertyName("P2")
+    var p2: Int = 0,
+
+    @get:PropertyName("PA") @set:PropertyName("PA")
+    var pa: Int = 0,
+
+    @get:PropertyName("AS") @set:PropertyName("AS")
+    var ass: Int = 0,
+
+    @get:PropertyName("NotaTotal") @set:PropertyName("NotaTotal")
+    var totalNote: Int = 0,
+
+    @get:PropertyName("Literal") @set:PropertyName("Literal")
+    var literal: String = ""
+) : Parcelable

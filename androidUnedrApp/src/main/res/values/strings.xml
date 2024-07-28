@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name" translatable="false">UNEDRAPP ACADEMY</string>
+    <string name="empty_text" translatable="false"> </string>
+
+    <string name="guion_data">-</string>
+    <string name="not_avilable">No disponible</string>
+    <string name="virtual">Virtual</string>
+    <string name="more_information">Más Información</string>
+
+
+    <string name="legend_of_grades">Leyenda de Notas</string>
+    <string name="pi">PI = Primer Parcial (20 Puntos)</string>
+    <string name="p2">P2 = Segundo Parcial (20 puntos)</string>
+    <string name="pa">PA = Trabajo/Examen Final (30 puntos)</string>
+    <string name="ass">AS = Asistencia Estudiantil (30 puntos)</string>
+    <string name="fi">FI = Nota Final (100)</string>
+    <string name="lit">LIT = Literal de la nota final (A,B,C,F…)</string>
+    <string name="sel">SEL = Seleccionada</string>
+    <string name="close">Cerrar</string>
+    <string name="subject">Asignatura</string>
+
+    <string name="audit_legend">Leyenda de Auditoría</string>
+    <string name="st">ST = Estado de la materia.</string>
+    <string name="cr">CR = Créditos</string>
+    <string name="cu">CU = Cuatrimestre</string>
+    <string name="pr">PR = Período</string>
+    <string name="nt">NT = Nota Final</string>
+    <string name="completed"> = Completada</string>
+    <string name="pending"> = Pendiente</string>
+    <string name="select"> = Seleccionada</string>
+
+
+    <string name="st_l">ST</string>
+    <string name="cr_l">CR</string>
+    <string name="cu_l">CU</string>
+    <string name="pr_l">PR</string>
+    <string name="nt_l">NT</string>
+    <string name="lit_l">LIT</string>
+
+    <string name="title_condition_general_audit">Condición Académica General</string>
+    <string name="ratings_title">Calificaciones: %1$s</string>
+    <string name="error_message_logout">Error al Salir de tu cuenta</string>
+    <string name="program_student_item_menu">Programas Estudiantiles</string>
+    <string name="calendar_item_menu">Calendario</string>
+    <string name="closet_session">Cerrar Sesion</string>
+    <string name="more_option">Más opciones</string>
+    <string name="refresh">Actualizar</string>
+
+
+</resources>

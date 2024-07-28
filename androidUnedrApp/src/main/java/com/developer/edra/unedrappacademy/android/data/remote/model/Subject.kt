@@ -1,16 +1,38 @@
 package com.developer.edra.unedrappacademy.android.data.remote.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import com.google.firebase.database.PropertyName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Subject(
-    @SerializedName("Id") val id: Int = 0,
-    @SerializedName("Código") val code: String = "",
-    @SerializedName("NombreAsignatura") val subjectName: String = "",
-    @SerializedName("Crédito") val credit: Int = 0,
-    @SerializedName("HT") val theoryHours: Int = 0,
-    @SerializedName("HP") val practicalHours: Int = 0,
-    @SerializedName("HI") val researchHours: Int = 0,
-    @SerializedName("TH") val totalHours: Int = 0,
-    @SerializedName("Prerrequisito") val prerequisite: Int = 0,
-    @SerializedName("Cuatrimestre") val quarter: Int = 0
-)
+    @get:PropertyName("Id") @set:PropertyName("Id")
+    var id: Int = 0,
+
+    @get:PropertyName("Código") @set:PropertyName("Código")
+    var code: String = "",
+
+    @get:PropertyName("NombreAsignatura") @set:PropertyName("NombreAsignatura")
+    var subjectName: String = "",
+
+    @get:PropertyName("Crédito") @set:PropertyName("Crédito")
+    var credit: Int = 0,
+
+    @get:PropertyName("HT") @set:PropertyName("HT")
+    var theoryHours: Int = 0,
+
+    @get:PropertyName("HP") @set:PropertyName("HP")
+    var practicalHours: Int = 0,
+
+    @get:PropertyName("HI") @set:PropertyName("HI")
+    var researchHours: Int = 0,
+
+    @get:PropertyName("TH") @set:PropertyName("TH")
+    var totalHours: Int = 0,
+
+    @get:PropertyName("Prerrequisito") @set:PropertyName("Prerrequisito")
+    var prerequisite: Int = 0,
+
+    @get:PropertyName("Cuatrimestre") @set:PropertyName("Cuatrimestre")
+    var quarter: Int = 0
+) : Parcelable

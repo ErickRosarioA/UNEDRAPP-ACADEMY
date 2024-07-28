@@ -8,11 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.developer.edra.unedrappacademy.android.ui.audit.AuditViewModel
 import com.developer.edra.unedrappacademy.android.ui.components.BottomNavigationBar
 import com.developer.edra.unedrappacademy.android.ui.components.CustomTopAppBar
+import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel
 import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavigationAppGraph
+import com.developer.edra.unedrappacademy.android.ui.ratings.RatingsViewModel
+import com.developer.edra.unedrappacademy.android.ui.schedule.ScheduleViewModel
 import com.developer.edra.unedrappacademy.android.ui.selection.SelectionViewModel
 import com.developer.edra.unedrappacademy.android.ui.signup.SignUpViewModel
 import com.developer.edra.unedrappacademy.android.utils.currentRoute
@@ -22,8 +26,12 @@ import com.developer.edra.unedrappacademy.android.utils.currentRoute
 fun MainScreen(
     mainViewModel: MainViewModel,
     selectionViewModel: SelectionViewModel,
+    dashboardViewModel: DashboardViewModel,
     loginViewModel: LoginViewModel,
-    signUpViewModel: SignUpViewModel
+    signUpViewModel: SignUpViewModel,
+    scheduleViewModel: ScheduleViewModel,
+    ratingsViewModel: RatingsViewModel,
+    auditViewModel: AuditViewModel
 ) {
     val navController = rememberNavController()
     val currentRoute = currentRoute(navController)
@@ -49,7 +57,17 @@ fun MainScreen(
                 .padding(padding)
                 .fillMaxSize()
         ) {
-            NavigationAppGraph(navController, selectionViewModel, loginViewModel, signUpViewModel)
+            NavigationAppGraph(
+                navController,
+                selectionViewModel,
+                mainViewModel,
+                dashboardViewModel,
+                loginViewModel,
+                signUpViewModel,
+                scheduleViewModel,
+                ratingsViewModel,
+                auditViewModel
+            )
         }
     }
 }
