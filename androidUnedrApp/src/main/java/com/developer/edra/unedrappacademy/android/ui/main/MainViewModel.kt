@@ -21,6 +21,16 @@ class MainViewModel @Inject constructor(
     private val _userLogged = MutableStateFlow(UserLogged())
     val userLogged: StateFlow<UserLogged> get() = _userLogged.asStateFlow()
 
+    private val _refreshEvent = MutableStateFlow(true)
+    val refreshEvent: StateFlow<Boolean> = _refreshEvent
+
+    fun triggerRefresh() {
+        _refreshEvent.value = true
+    }
+
+    fun clearRefresh() {
+        _refreshEvent.value = false
+    }
 
     fun getCurrentUser() {
         authRepository.getCurrentUser(CallbackHandle(

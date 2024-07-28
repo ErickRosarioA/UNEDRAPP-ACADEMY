@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import com.developer.edra.unedrappacademy.android.ui.audit.AuditViewModel
 import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel
 import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
 import com.developer.edra.unedrappacademy.android.ui.main.MainScreen
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
     private val dashboardViewModel: DashboardViewModel by viewModels()
     private val scheduleViewModel: ScheduleViewModel by viewModels()
     private val ratingsViewModel: RatingsViewModel by viewModels()
+    private val auditViewModel: AuditViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,8 @@ class MainActivity : ComponentActivity() {
                     loginViewModel,
                     signUpViewModel,
                     scheduleViewModel,
-                    ratingsViewModel
+                    ratingsViewModel,
+                    auditViewModel
                 )
             }
         }

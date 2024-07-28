@@ -22,5 +22,8 @@ data class AuditDetail(
     var note: Int = 0,
 
     @get:PropertyName("PeriodoId") @set:PropertyName("PeriodoId")
-    var periodId: Int = 0
+    var periodId: Int = 0,
+
+    @Transient
+    var literalUse: String = ""
 ) : Parcelable

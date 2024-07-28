@@ -17,5 +17,28 @@
     <string name="lit">LIT = Literal de la nota final (A,B,C,F…)</string>
     <string name="sel">SEL = Seleccionada</string>
     <string name="close">Cerrar</string>
+    <string name="subject">Asignatura</string>
+
+    <string name="audit_legend">Leyenda de Auditoría</string>
+    <string name="st">ST = Estado de la materia.</string>
+    <string name="cr">CR = Créditos</string>
+    <string name="cu">CU = Cuatrimestre</string>
+    <string name="pr">PR = Período</string>
+    <string name="nt">NT = Nota Final</string>
+    <string name="completed"> = Completada</string>
+    <string name="pending"> = Pendiente</string>
+    <string name="select"> = Seleccionada</string>
+
+
+    <string name="st_l">ST</string>
+    <string name="cr_l">CR</string>
+    <string name="cu_l">CU</string>
+    <string name="pr_l">PR</string>
+    <string name="nt_l">NT</string>
+    <string name="lit_l">LIT</string>
+
+    <string name="title_condition_general_audit">Condición Académica General</string>
+    <string name="ratings_title">Calificaciones: %1$s</string>
+
 
 </resources>

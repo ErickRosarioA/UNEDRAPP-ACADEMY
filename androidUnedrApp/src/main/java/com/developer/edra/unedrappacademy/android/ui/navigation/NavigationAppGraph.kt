@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.developer.edra.unedrappacademy.android.ui.audit.AuditScreen
+import com.developer.edra.unedrappacademy.android.ui.audit.AuditViewModel
 import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardScreen
 import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel
 import com.developer.edra.unedrappacademy.android.ui.login.LoginScreen
@@ -30,7 +31,8 @@ fun NavigationAppGraph(
     loginViewModel: LoginViewModel,
     signUpViewModel: SignUpViewModel,
     scheduleViewModel: ScheduleViewModel,
-    ratingsViewModel: RatingsViewModel
+    ratingsViewModel: RatingsViewModel,
+    auditViewModel: AuditViewModel
 ) {
 
     NavHost(navController = navController, startDestination = NavScreen.SelectionScreen.name) {
@@ -64,7 +66,7 @@ fun NavigationAppGraph(
         }
         composable(NavScreen.AuditScreen.name) {
             BackHandler(true) {}
-            AuditScreen()
+            AuditScreen(mainViewModel, auditViewModel, auditViewModel::onUIEvent )
         }
     }
 }

@@ -48,12 +48,17 @@ fun RatingsScreen(
 ) {
     val uiState by ratingsViewModel.uiState.collectAsState()
     val userInfo by mainViewModel.userLogged.collectAsState()
+    val refreshEvent by mainViewModel.refreshEvent.collectAsState()
 
     var showDialog by remember { mutableStateOf(false) }
 
-    LaunchedEffect(uiState) {
-        onEvent(RatingsViewModel.UIEvent.OnGetScheduleByEmail(userInfo.email))
+    LaunchedEffect(refreshEvent) {
+        if (refreshEvent) {
+            onEvent(RatingsViewModel.UIEvent.OnGetScheduleByEmail(userInfo.email))
+            mainViewModel.clearRefresh()
+        }
     }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -71,8 +76,8 @@ fun RatingsScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Calificaciones: ${uiState.codePeriod}",
-                    fontSize = 24.sp,
+                    text = stringResource(R.string.ratings_title, uiState.codePeriod),
+                    fontSize = 20.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 

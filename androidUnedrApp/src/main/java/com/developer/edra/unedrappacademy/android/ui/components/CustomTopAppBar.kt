@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ExitToApp
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -61,6 +62,13 @@ fun CustomTopAppBar(
             }
         },
         actions = {
+            IconButton(onClick = {mainViewModel.triggerRefresh()  }) {
+                Icon(
+                    imageVector = Icons.Outlined.Refresh,
+                    contentDescription = "Refresh",
+                    tint = MaterialTheme.colorScheme.secondary
+                )
+            }
             IconButton(onClick = {
                 mainViewModel.logout { success ->
                     if (success) {

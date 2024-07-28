@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.developer.edra.unedrappacademy.android.ui.audit.AuditViewModel
 import com.developer.edra.unedrappacademy.android.ui.components.BottomNavigationBar
 import com.developer.edra.unedrappacademy.android.ui.components.CustomTopAppBar
 import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel
@@ -29,7 +30,8 @@ fun MainScreen(
     loginViewModel: LoginViewModel,
     signUpViewModel: SignUpViewModel,
     scheduleViewModel: ScheduleViewModel,
-    ratingsViewModel: RatingsViewModel
+    ratingsViewModel: RatingsViewModel,
+    auditViewModel: AuditViewModel
 ) {
     val navController = rememberNavController()
     val currentRoute = currentRoute(navController)
@@ -63,7 +65,8 @@ fun MainScreen(
                 loginViewModel,
                 signUpViewModel,
                 scheduleViewModel,
-                ratingsViewModel
+                ratingsViewModel,
+                auditViewModel
             )
         }
     }
