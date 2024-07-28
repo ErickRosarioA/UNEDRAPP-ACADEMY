@@ -38,20 +38,21 @@ El diseño del proyecto fue realizado en Figma, donde se creó un prototipo inic
 
 A continuación, se muestran algunas de las pantallas del diseño:
 
-![Welcome](https://github.com/user-attachments/assets/094dfdcf-eb7b-427e-ae65-6d46cd3b8e8c)
-![Register](https://github.com/user-attachments/assets/116f5b5d-b585-42f6-a2c4-0557632e8bae)
 
-![Login](https://github.com/user-attachments/assets/935489f3-f5c4-463a-a363-22c9dfcaa584)
-![Home](https://github.com/user-attachments/assets/85056a15-b3f6-40e5-aeba-e9109d039148)
+![Welcome](https://github.com/user-attachments/assets/0869f269-978b-4a7c-a6e6-f6f73c0d6c1a)
+![Login](https://github.com/user-attachments/assets/7143be84-7e55-4b7b-8bbe-71fca19ab71c)
 
-![Shedule](https://github.com/user-attachments/assets/b1c4ac6c-e294-4e20-a133-12c3625307cf)
+![Register](https://github.com/user-attachments/assets/0602dfee-1301-49ef-9766-3c7d4348a2f7)
+![Home](https://github.com/user-attachments/assets/448e7604-060d-48b9-9640-af0cb0f67a26)
 
-![Qualification](https://github.com/user-attachments/assets/66e2bfeb-41e4-4c82-96d3-2419b5273206)
-![Qualification-Dialog](https://github.com/user-attachments/assets/a4d1ef1a-556b-46ef-a152-92171bf5b90d)
+![Home-Dialog](https://github.com/user-attachments/assets/bcea5c6d-4b84-47c5-9157-568e8d43cfb8)
+![Shedule](https://github.com/user-attachments/assets/f79f5073-9e41-4a4c-b45a-0546815e686a)
 
-![Audit](https://github.com/user-attachments/assets/df75c627-8ae9-44d1-ae5e-2449ad2d9e3f)
-![Audit-Dialog](https://github.com/user-attachments/assets/1ee9310c-fde1-49a2-b28f-e07941bfd157)
+![Qualification-Dialog](https://github.com/user-attachments/assets/eba96c68-9088-4f33-b00d-ea236daef5e2)
+![Qualification](https://github.com/user-attachments/assets/fba94375-dfc2-4ac9-9727-52cbb9ca3442)
 
+![Audit-Dialog](https://github.com/user-attachments/assets/dc11451d-a677-4483-9f9e-5f665d2f4f0b)
+![Audit](https://github.com/user-attachments/assets/c4f146f8-43d6-41d9-8875-3c5d2259f28a)
 
 ## Contacto
 
