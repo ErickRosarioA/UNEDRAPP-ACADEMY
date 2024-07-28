@@ -44,7 +44,6 @@ A continuación, se muestran algunas de las pantallas del diseño:
 ![Login](https://github.com/user-attachments/assets/935489f3-f5c4-463a-a363-22c9dfcaa584)
 ![Home](https://github.com/user-attachments/assets/85056a15-b3f6-40e5-aeba-e9109d039148)
 
-![Home-Dialog](https://github.com/user-attachments/assets/da385533-48d4-4e86-8574-4604b2a6e6ce)
 ![Shedule](https://github.com/user-attachments/assets/b1c4ac6c-e294-4e20-a133-12c3625307cf)
 
 ![Qualification](https://github.com/user-attachments/assets/66e2bfeb-41e4-4c82-96d3-2419b5273206)
