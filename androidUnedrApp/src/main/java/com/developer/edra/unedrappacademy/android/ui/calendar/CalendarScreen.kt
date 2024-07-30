@@ -1,9 +1,16 @@
+@file:Suppress("DEPRECATION")
+
 package com.developer.edra.unedrappacademy.android.ui.calendar
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideOutHorizontally
@@ -120,6 +127,10 @@ fun CalendarScreen(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT
                         )
+                        settings.javaScriptEnabled = true
+                        settings.builtInZoomControls = true
+                        settings.displayZoomControls = false
+
                         webViewClient = object : WebViewClient() {
                             override fun onPageStarted(
                                 view: WebView?,
@@ -135,9 +146,35 @@ fun CalendarScreen(
                                 loading = false
                             }
                         }
-                        settings.apply {
-                            javaScriptEnabled = true
+
+                        setDownloadListener { url, userAgent, _, mimeType, _ ->
+                            val downloadManager =
+                                context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+                            val request = DownloadManager.Request(Uri.parse(url)).apply {
+                                setMimeType(mimeType)
+                                addRequestHeader("User-Agent", userAgent)
+                                setDescription("Descargando archivo...")
+                                setTitle("Calendario_UNICDA_2024-2.pdf")
+                                setDestinationInExternalPublicDir(
+                                    Environment.DIRECTORY_DOWNLOADS,
+                                    "Calendario_UNICDA_2024-2.pdf"
+                                )
+                                setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            }
+
+
+                            downloadManager.enqueue(request)
+
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.loading_file), Toast.LENGTH_SHORT
+                            )
+                                .show()
                         }
+
+                        loadUrl(Constans.URL_DRIVE_CALENDAR_UNICDA_DOWNLOAD)
+
                     }
                 }, update = {
                     it.loadUrl(mUrl)

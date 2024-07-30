@@ -52,6 +52,7 @@
     <string name="i_have_account">¿Ya tengo una cuenta?</string>
     <string name="login_session">Iniciar Sesión</string>
     <string name="email_text">Correo Electrónico</string>
+    <string name="loading_file">Descargando Archivo...</string>
 
 
 </resources>
