@@ -39,6 +39,36 @@ class DataRepositoryImpl @Inject constructor(
         awaitClose { db.getReference("students").removeEventListener(listener) }
     }
 
+    override fun postStudent(student: Student) = callbackFlow {
+        val studentsRef = db.getReference("students")
+
+
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val count = snapshot.childrenCount
+                val nextId = count + 1
+
+                // Crear el objeto Student con el nuevo ID
+                val studentWithId = student.copy(id = nextId.toInt())
+
+
+                 studentsRef.child(nextId.toString()).setValue(studentWithId)
+                    .addOnSuccessListener {
+                        trySend(Resource.Success(studentWithId)).isSuccess
+                    }
+                    .addOnFailureListener { exception ->
+                        trySend(Resource.Error(exception.message ?: "Error desconocido")).isSuccess
+                    }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(Resource.Error(error.message)).isSuccess
+            }
+        }
+        studentsRef.addListenerForSingleValueEvent(listener)
+        awaitClose { studentsRef.removeEventListener(listener) }
+    }
+
 
     override fun getCareerById(id: Int) = callbackFlow {
         trySend(Resource.Loading())

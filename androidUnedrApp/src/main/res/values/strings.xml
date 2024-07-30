@@ -41,10 +41,18 @@
     <string name="ratings_title">Calificaciones: %1$s</string>
     <string name="error_message_logout">Error al Salir de tu cuenta</string>
     <string name="program_student_item_menu">Programas Estudiantiles</string>
-    <string name="calendar_item_menu">Calendario</string>
+    <string name="calendar_item_menu">Calendario Académico</string>
     <string name="closet_session">Cerrar Sesion</string>
     <string name="more_option">Más opciones</string>
     <string name="refresh">Actualizar</string>
+    <string name="update_ok">Actualizado</string>
+    <string name="credtial_invalid">Credenciales Incorrectas</string>
+    <string name="yes">Credenciales Incor</string>
+    <string name="carrera">Carrera</string>
+    <string name="i_have_account">¿Ya tengo una cuenta?</string>
+    <string name="login_session">Iniciar Sesión</string>
+    <string name="email_text">Correo Electrónico</string>
+    <string name="loading_file">Descargando Archivo...</string>
 
 
 </resources>

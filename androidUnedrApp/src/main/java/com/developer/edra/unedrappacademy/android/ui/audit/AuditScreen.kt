@@ -59,7 +59,7 @@ fun AuditScreen(
     LaunchedEffect(refreshEvent) {
         if (refreshEvent) {
             onEvent(AuditViewModel.UIEvent.OnGetScheduleByEmail(userInfo.email))
-            mainViewModel.clearRefresh()
+            //mainViewModel.clearRefresh()
         }
     }
 
