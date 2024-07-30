@@ -1,5 +1,6 @@
 package com.developer.edra.unedrappacademy.android.ui.components
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.developer.edra.unedrappacademy.android.R
+import com.developer.edra.unedrappacademy.android.ui.MainActivity
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 
@@ -72,7 +74,14 @@ fun CustomTopAppBar(
             }
         },
         actions = {
-            IconButton(onClick = { mainViewModel.triggerRefresh() }) {
+            IconButton(onClick = {
+                mainViewModel.triggerRefresh()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.update_ok),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }) {
                 Icon(
                     imageVector = Icons.Outlined.Refresh,
                     contentDescription = stringResource(R.string.refresh),
@@ -97,13 +106,7 @@ fun CustomTopAppBar(
                     text = {
                         Text(stringResource(R.string.calendar_item_menu))
                     },
-                    onClick = { /* TODO */ },
-                )
-                DropdownMenuItem(
-                    text = {
-                        Text(stringResource(R.string.program_student_item_menu))
-                    },
-                    onClick = { /* TODO */ },
+                    onClick = {    navHostController.navigate(NavScreen.CalendarScreen.name) },
                 )
                 DropdownMenuItem(
                     text = {
@@ -112,7 +115,10 @@ fun CustomTopAppBar(
                     onClick = {
                         mainViewModel.logout { success ->
                             if (success) {
-                                navHostController.navigate(NavScreen.WelcomeScreen.name)
+                                val intent = Intent(context, MainActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                context.startActivity(intent)
+
                             } else {
                                 Toast.makeText(
                                     context,

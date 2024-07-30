@@ -89,6 +89,7 @@ fun shouldShowBottomBar(navController: NavHostController): Boolean {
     return when (currentRoute) {
         NavScreen.WelcomeScreen.name,
         NavScreen.LoginScreen.name,
+        NavScreen.CalendarScreen.name,
         NavScreen.SignUpScreen.name -> false
 
         else -> true

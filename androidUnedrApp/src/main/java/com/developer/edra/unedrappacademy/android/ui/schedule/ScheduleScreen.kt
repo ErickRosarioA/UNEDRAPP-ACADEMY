@@ -47,9 +47,13 @@ fun ScheduleScreen(
 
     val uiState by scheduleViewModel.uiState.collectAsState()
     val userInfo by mainViewModel.userLogged.collectAsState()
+    val refreshEvent by mainViewModel.refreshEvent.collectAsState()
 
-    LaunchedEffect(uiState) {
-        onEvent(ScheduleViewModel.UIEvent.OnGetScheduleByEmail(userInfo.email))
+    LaunchedEffect(refreshEvent) {
+        if (refreshEvent) {
+            onEvent(ScheduleViewModel.UIEvent.OnGetScheduleByEmail(userInfo.email))
+           // mainViewModel.clearRefresh()
+        }
     }
 
     Box(

@@ -2,6 +2,7 @@ package com.developer.edra.unedrappacademy.android.ui.signup
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -16,10 +17,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Phone
@@ -28,10 +27,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -57,14 +55,22 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.R
+import com.developer.edra.unedrappacademy.android.data.remote.model.Student
+import com.developer.edra.unedrappacademy.android.ui.components.IndeterminateCircularIndicator
+import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.ui.models.ValidationResultField
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
-import com.google.firebase.database.core.utilities.Validation
+import kotlinx.coroutines.delay
 
 
 @Composable
-fun SignUpScreen(navController: NavController, signUpViewModel: SignUpViewModel) {
+fun SignUpScreen(
+    navController: NavController,
+    signUpViewModel: SignUpViewModel,
+    mainViewModel: MainViewModel
+) {
     val name = remember { mutableStateOf("") }
+    val lastName = remember { mutableStateOf("") }
     val campus = remember { mutableStateOf("") }
     val career = remember { mutableStateOf("") }
     val enrollment = remember { mutableStateOf("") }
@@ -73,10 +79,15 @@ fun SignUpScreen(navController: NavController, signUpViewModel: SignUpViewModel)
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
 
+    var loading by remember { mutableStateOf(false) }
+
+    val registerUserSuccess by signUpViewModel.registerMessage.collectAsState()
+
     val context = LocalContext.current
 
     SignUpScreen(
         name = name,
+        lastName = lastName,
         campus = campus,
         career = career,
         enrollment = enrollment,
@@ -97,13 +108,40 @@ fun SignUpScreen(navController: NavController, signUpViewModel: SignUpViewModel)
             )
 
             if (result.isValid) {
+                loading = true
                 signUpViewModel.email = email.value
                 signUpViewModel.password = password.value
                 signUpViewModel.signUp { success ->
                     if (success) {
-                        navController.navigate(NavScreen.DashboardScreen.name)
+                        signUpViewModel.postStudent(
+                            student = Student(
+                                id = -1,
+                                firstName = name.value,
+                                lastName = lastName.value,
+                                universityStatus = false,
+                                campus = campus.value,
+                                enrollment = enrollment.value,
+                                email = email.value,
+                                phone = phone.value,
+                                auditId = 0,
+                                careerId = 1,
+                                activeGradesId = 0
+                            )
+                        )
+                        loading = false
+                        mainViewModel.getCurrentUser()
+                        if (mainViewModel.userLogged.value.email == email.value) {
+                            navController.navigate(NavScreen.DashboardScreen.name)
+                        }
+
+
                     } else {
-                        Toast.makeText(context, "Identificar error", Toast.LENGTH_LONG).show()
+                        loading = false
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.credtial_invalid),
+                            Toast.LENGTH_LONG
+                        ).show()
 
                     }
                 }
@@ -111,6 +149,7 @@ fun SignUpScreen(navController: NavController, signUpViewModel: SignUpViewModel)
                 Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
             }
         },
+        loading = loading,
         onLoginClick = {
             navController.navigate(NavScreen.LoginScreen.name)
         }
@@ -122,6 +161,7 @@ fun SignUpScreen(navController: NavController, signUpViewModel: SignUpViewModel)
 @Composable
 fun SignUpScreen(
     name: MutableState<String>,
+    lastName: MutableState<String>,
     campus: MutableState<String>,
     career: MutableState<String>,
     enrollment: MutableState<String>,
@@ -131,6 +171,7 @@ fun SignUpScreen(
     confirmPassword: MutableState<String>,
     onSignUpClick: () -> Unit,
     onLoginClick: () -> Unit,
+    loading: Boolean
 ) {
 
 
@@ -176,7 +217,23 @@ fun SignUpScreen(
                     value = name.value,
                     onValueChange = { name.value = it },
                     textStyle = TextStyle(fontSize = 18.sp),
-                    label = { Text("Nombre Completo") },
+                    label = { Text("Nombres") },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Person,
+                            contentDescription = "Icon Person"
+                        )
+                    },
+                    modifier = textFieldModifier
+                )
+            }
+
+            item {
+                OutlinedTextField(
+                    value = lastName.value,
+                    onValueChange = { lastName.value = it },
+                    textStyle = TextStyle(fontSize = 18.sp),
+                    label = { Text("Apellidos") },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Person,
@@ -192,7 +249,7 @@ fun SignUpScreen(
                     value = email.value,
                     onValueChange = { email.value = it },
                     textStyle = TextStyle(fontSize = 18.sp),
-                    label = { Text("Correo Electrónico") },
+                    label = { Text(stringResource(R.string.email_text)) },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Email,
@@ -289,19 +346,20 @@ fun SignUpScreen(
             item {
                 var expanded by remember { mutableStateOf(false) }
                 val careers =
-                    listOf("Ingeniería de Software", "Medicina", "Derecho", "Arquitectura")
+                    listOf("Ingeniería de Software")
 
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
                         .clickable { expanded = !expanded }
+                        .background(MaterialTheme.colorScheme.secondary)
                 ) {
                     OutlinedTextField(
                         value = career.value,
                         onValueChange = { career.value = it },
                         textStyle = TextStyle(fontSize = 18.sp),
-                        label = { Text("Carrera") },
+                        label = { Text(stringResource(R.string.carrera)) },
                         trailingIcon = {
                             Icon(
                                 imageVector = Icons.Outlined.ArrowDropDown,
@@ -350,16 +408,17 @@ fun SignUpScreen(
 
                 // Login Text
                 Row {
-                    Text(text = "¿Ya tengo una cuenta?")
+                    Text(text = stringResource(R.string.i_have_account))
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Iniciar Sesión",
+                        text = stringResource(R.string.login_session),
                         color = Color(0xFFE45351),
                         modifier = Modifier.clickable { onLoginClick() }
                     )
                 }
             }
         }
+        IndeterminateCircularIndicator(loading = loading)
     }
 
 
@@ -404,5 +463,5 @@ fun validateSignUpFields(
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
-    SignUpScreen(rememberNavController(), viewModel())
+    SignUpScreen(rememberNavController(), viewModel(), viewModel())
 }

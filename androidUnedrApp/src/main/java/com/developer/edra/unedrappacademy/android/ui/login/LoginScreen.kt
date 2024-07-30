@@ -46,13 +46,17 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.R
 import com.developer.edra.unedrappacademy.android.ui.components.IndeterminateCircularIndicator
+import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.ui.models.ValidationResultField
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 
 @Composable
-fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel) {
+fun LoginScreen(
+    navController: NavController,
+    loginViewModel: LoginViewModel,
+    mainViewModel: MainViewModel
+) {
     val context = LocalContext.current
-
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     var loading by remember { mutableStateOf(false) }
@@ -74,9 +78,16 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel) {
                 loginViewModel.login { success ->
                     loading = false
                     if (success) {
-                        navController.navigate(NavScreen.DashboardScreen.name)
+                        mainViewModel.getCurrentUser()
+                        if (mainViewModel.userLogged.value.email == email.value) {
+                            navController.navigate(NavScreen.DashboardScreen.name)
+                        }
                     } else {
-                        Toast.makeText(context, "Identificar error", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.credtial_invalid),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             } else {
@@ -224,5 +235,5 @@ fun validateSignUpFields(
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen(rememberNavController(), viewModel())
+    LoginScreen(rememberNavController(), viewModel(), viewModel())
 }

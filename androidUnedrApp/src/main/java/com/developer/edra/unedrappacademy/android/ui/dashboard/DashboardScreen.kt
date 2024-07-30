@@ -45,10 +45,13 @@ fun DashboardScreen(
 ) {
     val uiState by dashboardViewModel.uiState.collectAsState()
     val userInfo by mainViewModel.userLogged.collectAsState()
+    val refreshEvent by mainViewModel.refreshEvent.collectAsState()
 
-    LaunchedEffect(uiState) {
-        onEvent(DashboardViewModel.UIEvent.OnGetStudentByEmail(userInfo.email))
-
+    LaunchedEffect(refreshEvent) {
+        if (refreshEvent) {
+            onEvent(DashboardViewModel.UIEvent.OnGetStudentByEmail(userInfo.email))
+           // mainViewModel.clearRefresh()
+        }
     }
 
     Box(
