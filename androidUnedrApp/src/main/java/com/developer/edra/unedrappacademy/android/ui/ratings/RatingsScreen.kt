@@ -55,7 +55,7 @@ fun RatingsScreen(
     LaunchedEffect(refreshEvent) {
         if (refreshEvent) {
             onEvent(RatingsViewModel.UIEvent.OnGetScheduleByEmail(userInfo.email))
-            //mainViewModel.clearRefresh()
+         // mainViewModel.clearRefresh()
         }
     }
 

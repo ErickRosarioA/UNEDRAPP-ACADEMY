@@ -131,22 +131,6 @@ fun CustomTopAppBar(
                 )
             }
 
-
-//            IconButton(onClick = {
-//                mainViewModel.logout { success ->
-//                    if (success) {
-//                        navHostController.navigate(NavScreen.WelcomeScreen.name)
-//                    } else {
-//                        Toast.makeText(context, "Error al Salir de tu cuenta", Toast.LENGTH_LONG).show()
-//                    }
-//                }
-//            }) {
-//                Icon(
-//                    imageVector = Icons.AutoMirrored.Outlined.ExitToApp,
-//                    contentDescription = "ExitApp",
-//                    tint = MaterialTheme.colorScheme.secondary
-//                )
-//            }
         },
         scrollBehavior = scrollBehavior,
     )

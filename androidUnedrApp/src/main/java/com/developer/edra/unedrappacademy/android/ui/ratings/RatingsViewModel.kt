@@ -13,7 +13,6 @@ import com.developer.edra.unedrappacademy.android.ui.base.BaseUiState
 import com.developer.edra.unedrappacademy.android.utils.getMonthRange
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +22,7 @@ class RatingsViewModel @Inject constructor(private val dataRepository: DataRepos
 
     var uiState = MutableStateFlow(UIState())
         private set
+
 
     private fun fetchStudentByEmail(email: String) {
         viewModelScope.launch {
@@ -138,6 +138,7 @@ class RatingsViewModel @Inject constructor(private val dataRepository: DataRepos
             }
         }
     }
+
 
     data class UIState(
         val noteActive: NoteActive = NoteActive(),
