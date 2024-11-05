@@ -1,10 +1,7 @@
-package com.developer.edra.unedrappacademy.android.data.remote.repository
+package com.developer.edra.unedrappacademy.android.domain.repository
 
-import com.developer.edra.unedrappacademy.android.data.remote.model.UserLogged
+import com.developer.edra.unedrappacademy.android.domain.model.UserLogged
 import com.developer.edra.unedrappacademy.android.utils.CallbackHandle
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.tasks.await
 
 interface AuthRepository {
     fun getCurrentUser(callback : CallbackHandle<UserLogged>)

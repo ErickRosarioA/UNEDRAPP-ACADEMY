@@ -1,9 +1,9 @@
 package com.developer.edra.unedrappacademy.android.di
 
-import com.developer.edra.unedrappacademy.android.data.remote.repository.AuthFirebaseImpl
-import com.developer.edra.unedrappacademy.android.data.remote.repository.AuthRepository
-import com.developer.edra.unedrappacademy.android.data.remote.repository.DataRepository
-import com.developer.edra.unedrappacademy.android.data.remote.repository.DataRepositoryImpl
+import com.developer.edra.unedrappacademy.android.data.repository.AuthFirebaseImpl
+import com.developer.edra.unedrappacademy.android.domain.repository.AuthRepository
+import com.developer.edra.unedrappacademy.android.domain.repository.DataRepository
+import com.developer.edra.unedrappacademy.android.data.repository.DataRepositoryImpl
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth

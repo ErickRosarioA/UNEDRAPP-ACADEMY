@@ -55,7 +55,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.developer.edra.unedrappacademy.android.R
-import com.developer.edra.unedrappacademy.android.data.remote.model.Student
+import com.developer.edra.unedrappacademy.android.domain.model.Student
 import com.developer.edra.unedrappacademy.android.ui.components.IndeterminateCircularIndicator
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.ui.models.ValidationResultField

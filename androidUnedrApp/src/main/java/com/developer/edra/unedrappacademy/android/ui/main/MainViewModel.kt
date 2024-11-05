@@ -2,8 +2,8 @@ package com.developer.edra.unedrappacademy.android.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.developer.edra.unedrappacademy.android.data.remote.model.UserLogged
-import com.developer.edra.unedrappacademy.android.data.remote.repository.AuthRepository
+import com.developer.edra.unedrappacademy.android.domain.model.UserLogged
+import com.developer.edra.unedrappacademy.android.domain.repository.AuthRepository
 import com.developer.edra.unedrappacademy.android.utils.CallbackHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

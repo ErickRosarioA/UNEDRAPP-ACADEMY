@@ -1,4 +1,4 @@
-package com.developer.edra.unedrappacademy.android.data.remote.model
+package com.developer.edra.unedrappacademy.android.domain.model
 
 
 data class UserLogged(

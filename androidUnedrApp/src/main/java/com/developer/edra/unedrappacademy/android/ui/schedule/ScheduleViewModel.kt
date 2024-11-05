@@ -1,27 +1,19 @@
 package com.developer.edra.unedrappacademy.android.ui.schedule
 
-import android.content.Context
 import android.icu.util.Calendar
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.developer.edra.unedrappacademy.android.R
-import com.developer.edra.unedrappacademy.android.data.remote.model.Career
-import com.developer.edra.unedrappacademy.android.data.remote.model.Resource
-import com.developer.edra.unedrappacademy.android.data.remote.model.ScheduleDetail
-import com.developer.edra.unedrappacademy.android.data.remote.model.ScheduleSubject
-import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
-import com.developer.edra.unedrappacademy.android.data.remote.repository.DataRepository
-import com.developer.edra.unedrappacademy.android.ui.base.BaseUiState
-import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel.UIEvent
+import com.developer.edra.unedrappacademy.android.domain.model.Career
+import com.developer.edra.unedrappacademy.android.domain.model.Resource
+import com.developer.edra.unedrappacademy.android.domain.model.ScheduleDetail
+import com.developer.edra.unedrappacademy.android.domain.model.ScheduleSubject
+import com.developer.edra.unedrappacademy.android.domain.model.Subject
+import com.developer.edra.unedrappacademy.android.domain.repository.DataRepository
+import com.developer.edra.unedrappacademy.android.base.BaseUiState
 import com.developer.edra.unedrappacademy.android.utils.getMonthRange
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 

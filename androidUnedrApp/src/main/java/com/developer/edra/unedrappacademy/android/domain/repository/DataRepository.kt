@@ -1,13 +1,13 @@
-package com.developer.edra.unedrappacademy.android.data.remote.repository
+package com.developer.edra.unedrappacademy.android.domain.repository
 
-import com.developer.edra.unedrappacademy.android.data.remote.model.Audit
-import com.developer.edra.unedrappacademy.android.data.remote.model.Career
-import com.developer.edra.unedrappacademy.android.data.remote.model.NoteActive
-import com.developer.edra.unedrappacademy.android.data.remote.model.Period
-import com.developer.edra.unedrappacademy.android.data.remote.model.Schedule
-import com.developer.edra.unedrappacademy.android.data.remote.model.Student
-import com.developer.edra.unedrappacademy.android.data.remote.model.Resource
-import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
+import com.developer.edra.unedrappacademy.android.domain.model.Audit
+import com.developer.edra.unedrappacademy.android.domain.model.Career
+import com.developer.edra.unedrappacademy.android.domain.model.NoteActive
+import com.developer.edra.unedrappacademy.android.domain.model.Period
+import com.developer.edra.unedrappacademy.android.domain.model.Schedule
+import com.developer.edra.unedrappacademy.android.domain.model.Student
+import com.developer.edra.unedrappacademy.android.domain.model.Resource
+import com.developer.edra.unedrappacademy.android.domain.model.Subject
 import kotlinx.coroutines.flow.Flow
 
 interface DataRepository {

@@ -1,6 +1,5 @@
-package com.developer.edra.unedrappacademy.android.ui.base
+package com.developer.edra.unedrappacademy.android.base
 
-import androidx.compose.runtime.MutableState
 import com.developer.edra.unedrappacademy.android.R
 import kotlinx.coroutines.flow.MutableStateFlow
 

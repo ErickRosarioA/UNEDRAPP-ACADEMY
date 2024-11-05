@@ -1,4 +1,4 @@
-package com.developer.edra.unedrappacademy.android.ui
+package com.developer.edra.unedrappacademy.android.base
 
 import android.app.Application
 import com.developer.edra.unedrappacademy.android.BuildConfig

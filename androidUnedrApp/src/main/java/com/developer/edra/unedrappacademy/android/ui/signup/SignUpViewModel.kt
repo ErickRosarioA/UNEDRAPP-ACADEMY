@@ -5,11 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.developer.edra.unedrappacademy.android.data.remote.model.Resource
-import com.developer.edra.unedrappacademy.android.data.remote.model.Student
-import com.developer.edra.unedrappacademy.android.data.remote.repository.AuthRepository
-import com.developer.edra.unedrappacademy.android.data.remote.repository.DataRepositoryImpl
-import com.developer.edra.unedrappacademy.android.ui.schedule.ScheduleViewModel.UIState
+import com.developer.edra.unedrappacademy.android.domain.model.Resource
+import com.developer.edra.unedrappacademy.android.domain.model.Student
+import com.developer.edra.unedrappacademy.android.domain.repository.AuthRepository
+import com.developer.edra.unedrappacademy.android.data.repository.DataRepositoryImpl
 import com.developer.edra.unedrappacademy.android.utils.CallbackHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

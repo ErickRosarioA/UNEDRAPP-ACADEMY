@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.developer.edra.unedrappacademy.android.R
-import com.developer.edra.unedrappacademy.android.ui.MainActivity
+import com.developer.edra.unedrappacademy.android.base.MainActivity
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.ui.navigation.NavScreen
 
