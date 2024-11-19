@@ -1,5 +1,6 @@
 package com.developer.edra.unedrappacademy.android.di
 
+import android.content.Context
 import com.developer.edra.unedrappacademy.android.data.repository.AuthFirebaseImpl
 import com.developer.edra.unedrappacademy.android.data.repository.DataRepositoryImpl
 import com.developer.edra.unedrappacademy.android.domain.repository.AuthRepository
@@ -19,6 +20,7 @@ import com.developer.edra.unedrappacademy.android.domain.use_case.GetSubjectById
 import com.developer.edra.unedrappacademy.android.domain.use_case.LogoutUseCase
 import com.developer.edra.unedrappacademy.android.domain.use_case.PostStudent
 import com.developer.edra.unedrappacademy.android.domain.use_case.SignInWithEmailAndPasswordUseCase
+
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -27,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -167,6 +170,7 @@ object AppModule {
     fun provideSignInWithEmailAndPasswordUseCase(authRepository: AuthRepository): SignInWithEmailAndPasswordUseCase {
         return SignInWithEmailAndPasswordUseCase(authRepository)
     }
+
 
     @Singleton
     @Provides

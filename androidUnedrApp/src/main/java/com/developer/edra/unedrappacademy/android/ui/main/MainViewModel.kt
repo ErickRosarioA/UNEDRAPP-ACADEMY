@@ -20,6 +20,9 @@ class MainViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
+    companion object {
+        const val PERMISSION_REQUEST_CODE = 1001
+    }
 
     private val _userLogged = MutableStateFlow(UserLogged())
     val userLogged: StateFlow<UserLogged> get() = _userLogged.asStateFlow()

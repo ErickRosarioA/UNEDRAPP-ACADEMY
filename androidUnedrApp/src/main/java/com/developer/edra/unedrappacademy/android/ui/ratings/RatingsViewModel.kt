@@ -13,8 +13,11 @@ import com.developer.edra.unedrappacademy.android.base.BaseUiState
 import com.developer.edra.unedrappacademy.android.domain.use_case.DataGeneralUseCases
 import com.developer.edra.unedrappacademy.android.utils.getMonthRange
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,8 +34,16 @@ class RatingsViewModel @Inject constructor(private val dataGeneralUseCases: Data
                 when (resource) {
                     is Resource.Success -> {
                         val studentData = resource.data!!
-                        fetchPeriods()
-                        fetchCareerById(studentData.careerId)
+
+                        withContext(Dispatchers.IO) {
+                            fetchPeriods()
+                        }
+
+
+                        withContext(Dispatchers.IO) {
+                            fetchCareerById(studentData.careerId)
+                        }
+
                         fetchNoteActiveId(studentData.id)
                     }
 
