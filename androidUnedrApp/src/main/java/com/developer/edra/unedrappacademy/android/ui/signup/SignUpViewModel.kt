@@ -5,10 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.developer.edra.unedrappacademy.android.data.repository.DataRepositoryImpl
 import com.developer.edra.unedrappacademy.android.domain.model.Resource
 import com.developer.edra.unedrappacademy.android.domain.model.Student
-import com.developer.edra.unedrappacademy.android.domain.repository.AuthRepository
-import com.developer.edra.unedrappacademy.android.data.repository.DataRepositoryImpl
+import com.developer.edra.unedrappacademy.android.domain.use_case.CreateUserWithEmailAndPasswordUseCase
+import com.developer.edra.unedrappacademy.android.domain.use_case.DataGeneralUseCases
 import com.developer.edra.unedrappacademy.android.utils.CallbackHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -18,8 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
-    private val dataRepositoryImpl: DataRepositoryImpl
+    private val createUserWithEmailAndPasswordUseCase: CreateUserWithEmailAndPasswordUseCase,
+    private val dataGeneralUseCases: DataGeneralUseCases
 ) :
     ViewModel() {
     var email by mutableStateOf("")
@@ -29,7 +30,7 @@ class SignUpViewModel @Inject constructor(
 
     fun signUp(authResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            authRepository.createUserWithEmailAndPassword(email, password, CallbackHandle(
+            createUserWithEmailAndPasswordUseCase(email, password, CallbackHandle(
                 onSuccess = { authResult.invoke(it) },
                 onError = { }
             ))
@@ -39,7 +40,7 @@ class SignUpViewModel @Inject constructor(
 
     fun postStudent(student: Student) {
         viewModelScope.launch {
-            dataRepositoryImpl.postStudent(student).collect { resource ->
+            dataGeneralUseCases.postStudent(student).collect { resource ->
                 when (resource) {
                     is Resource.Loading -> {
                         // Manejar estado de carga, por ejemplo, mostrar un indicador de progreso

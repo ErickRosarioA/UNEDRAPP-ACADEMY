@@ -11,13 +11,14 @@ import com.developer.edra.unedrappacademy.android.domain.model.Subject
 import com.developer.edra.unedrappacademy.android.domain.model.SubjectAverage
 import com.developer.edra.unedrappacademy.android.domain.repository.DataRepository
 import com.developer.edra.unedrappacademy.android.base.BaseUiState
+import com.developer.edra.unedrappacademy.android.domain.use_case.DataGeneralUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(private val dataRepository: DataRepository) :
+class DashboardViewModel @Inject constructor(private val dataGeneralUseCases: DataGeneralUseCases) :
     ViewModel() {
 
 
@@ -27,7 +28,7 @@ class DashboardViewModel @Inject constructor(private val dataRepository: DataRep
 
     private fun fetchStudentByEmail(email: String) {
         viewModelScope.launch {
-            dataRepository.getStudentByEmail(email).collect { resource ->
+            dataGeneralUseCases.getStudentByEmail(email).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         uiState.value = uiState.value.copy(student = resource.data!!)
@@ -52,7 +53,7 @@ class DashboardViewModel @Inject constructor(private val dataRepository: DataRep
 
     private fun fetchCareerById(id: Int) {
         viewModelScope.launch {
-            dataRepository.getCareerById(id).collect { resource ->
+            dataGeneralUseCases.getCareerById(id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         uiState.value = uiState.value.copy(career = resource.data!!)
@@ -72,7 +73,7 @@ class DashboardViewModel @Inject constructor(private val dataRepository: DataRep
 
     private fun fetchAuditById(id: Int) {
         viewModelScope.launch {
-            dataRepository.getAuditsById(id).collect { resource ->
+            dataGeneralUseCases.getAuditById(id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val dataAudit = resource.data!!

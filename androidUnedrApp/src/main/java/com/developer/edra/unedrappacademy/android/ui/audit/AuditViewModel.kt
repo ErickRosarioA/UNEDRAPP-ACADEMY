@@ -11,6 +11,7 @@ import com.developer.edra.unedrappacademy.android.domain.model.Resource
 import com.developer.edra.unedrappacademy.android.domain.model.Subject
 import com.developer.edra.unedrappacademy.android.domain.repository.DataRepository
 import com.developer.edra.unedrappacademy.android.base.BaseUiState
+import com.developer.edra.unedrappacademy.android.domain.use_case.DataGeneralUseCases
 import com.developer.edra.unedrappacademy.android.utils.Constans
 import com.developer.edra.unedrappacademy.android.utils.getMonthRange
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,14 +21,14 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class AuditViewModel @Inject constructor(private val dataRepository: DataRepository) :
+class AuditViewModel @Inject constructor( private val dataGeneralUseCases: DataGeneralUseCases) :
     ViewModel() {
     var uiState = MutableStateFlow(UIState())
         private set
 
     private fun fetchStudentByEmail(email: String) {
         viewModelScope.launch {
-            dataRepository.getStudentByEmail(email).collect { resource ->
+            dataGeneralUseCases.getStudentByEmail(email).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val studentData = resource.data!!
@@ -53,7 +54,7 @@ class AuditViewModel @Inject constructor(private val dataRepository: DataReposit
 
     private fun fetchAuditById(id: Int) {
         viewModelScope.launch {
-            dataRepository.getAuditsById(id).collect { resource ->
+            dataGeneralUseCases.getAuditById(id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val auditByStudent = resource.data!!
@@ -133,7 +134,7 @@ class AuditViewModel @Inject constructor(private val dataRepository: DataReposit
 
     private fun fetchPeriods() {
         viewModelScope.launch {
-            dataRepository.getPeriods().collect { resource ->
+            dataGeneralUseCases.getAllPeriods().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
 
@@ -159,7 +160,7 @@ class AuditViewModel @Inject constructor(private val dataRepository: DataReposit
 
     private fun fetchCareerById(id: Int) {
         viewModelScope.launch {
-            dataRepository.getCareerById(id).collect { resource ->
+            dataGeneralUseCases.getCareerById(id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val careerByStudent = resource.data!!

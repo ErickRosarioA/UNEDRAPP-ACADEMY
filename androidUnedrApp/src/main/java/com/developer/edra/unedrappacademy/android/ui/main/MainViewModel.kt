@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developer.edra.unedrappacademy.android.domain.model.UserLogged
 import com.developer.edra.unedrappacademy.android.domain.repository.AuthRepository
+import com.developer.edra.unedrappacademy.android.domain.use_case.GetCurrentUserUseCase
+import com.developer.edra.unedrappacademy.android.domain.use_case.LogoutUseCase
 import com.developer.edra.unedrappacademy.android.utils.CallbackHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
 
@@ -33,7 +36,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun getCurrentUser() {
-        authRepository.getCurrentUser(CallbackHandle(
+        getCurrentUserUseCase(CallbackHandle(
             onSuccess = {
                 _userLogged.value = _userLogged.value.copy(email = it.email)
             },
@@ -44,7 +47,7 @@ class MainViewModel @Inject constructor(
 
     fun logout(logoutResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            authRepository.logout(CallbackHandle(
+            logoutUseCase(CallbackHandle(
                 onSuccess = {
                     logoutResult.invoke(it)
                 },
