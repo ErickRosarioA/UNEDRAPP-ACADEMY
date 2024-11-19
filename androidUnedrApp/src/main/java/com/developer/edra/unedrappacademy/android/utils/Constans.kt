@@ -8,9 +8,9 @@ object Constans {
     const val STATUS_COM = "Completada"
 
     const val URL_DRIVE_CALENDAR_UNICDA =
-        "https://drive.google.com/file/d/1f1MCB5GNUZjEL-jfL5YXteTP22wKKQHZ/view?usp=sharing"
+        "https://drive.google.com/file/d/1Qzmx94uMGPhrBrxUEqYCDICRaM2zInip/view?usp=sharing"
 
-    const val URL_DRIVE_CALENDAR_UNICDA_DOWNLOAD = "https://drive.google.com/uc?export=download&id=1f1MCB5GNUZjEL-jfL5YXteTP22wKKQHZ"
+    const val URL_DRIVE_CALENDAR_UNICDA_DOWNLOAD = "https://drive.google.com/uc?export=download&id=1Qzmx94uMGPhrBrxUEqYCDICRaM2zInip"
 
 
 }
