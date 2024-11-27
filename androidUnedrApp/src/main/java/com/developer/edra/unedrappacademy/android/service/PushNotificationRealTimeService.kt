@@ -55,33 +55,43 @@ class RealTimeDatabaseService : Service() {
                                 "AS" to ass
                             )
 
-                            // Compara los valores actuales con los previos almacenados en el mapa
+
                             val previousNoteValues = lastNoteValues[key]
 
-                            // Si no había valores previos para esta nota, inicializamos
+
                             if (previousNoteValues == null) {
                                 lastNoteValues[key] = currentNoteValues
                             } else {
-                                // Comparar cada propiedad de la nota
+
                                 currentNoteValues.forEach { (property, currentValue) ->
                                     val previousValue = previousNoteValues[property]
 
-                                    // Si hay un cambio en alguna propiedad, muestra la notificación
+
                                     if (previousValue != currentValue) {
+                                        val notificationMessage = when (property) {
+                                            "P1" -> "Se ha digitado la nota del primer parcial: $currentValue"
+                                            "P2" -> "Se ha digitado la nota del segundo parcial: $currentValue"
+                                            "PA" -> "Se ha digitado la nota de práctica: $currentValue"
+                                            "AS" -> "Se ha digitado la nota de la asignación final: $currentValue"
+                                            else -> "Cambio detectado en la propiedad $property: $currentValue"
+                                        }
+
+
                                         showNotification(
-                                            "Cambio detectado para Estudiante $estudianteId en Asignatura $asignaturaId",
-                                            "Propiedad cambiada: $property\nNuevo valor: $currentValue"
+                                            "Actualización de Notas Asignatura $asignaturaId",
+                                            notificationMessage
                                         )
                                     }
                                 }
 
-                                // Actualizar los valores previos en el mapa
+
                                 lastNoteValues[key] = currentNoteValues
                             }
                         }
                     }
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Log.e("RealTimeDatabaseService", "Error al leer datos: ${error.message}")
             }
@@ -94,8 +104,8 @@ class RealTimeDatabaseService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
         val notification: Notification = NotificationCompat.Builder(this, "CHANNEL_ID")
-            .setContentTitle("Servicio Activo: Notas")
-            .setSmallIcon(R.drawable.info)
+         //   .setContentTitle("Servicio Activo: Notas")
+      //      .setSmallIcon(R.drawable.info)
             .build()
         startForeground(1, notification)
         return START_NOT_STICKY
@@ -115,7 +125,7 @@ class RealTimeDatabaseService : Service() {
     private fun showNotification(title: String, message: String) {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val notificationBuilder = NotificationCompat.Builder(this, "CHANNEL_ID")
-            .setSmallIcon(R.drawable.info)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
