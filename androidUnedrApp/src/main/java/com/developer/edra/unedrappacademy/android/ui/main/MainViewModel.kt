@@ -3,7 +3,6 @@ package com.developer.edra.unedrappacademy.android.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developer.edra.unedrappacademy.android.domain.model.UserLogged
-import com.developer.edra.unedrappacademy.android.domain.repository.AuthRepository
 import com.developer.edra.unedrappacademy.android.domain.use_case.GetCurrentUserUseCase
 import com.developer.edra.unedrappacademy.android.domain.use_case.LogoutUseCase
 import com.developer.edra.unedrappacademy.android.utils.CallbackHandle
