@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class RealTimeDatabaseService : Service() {
+class PushNotificationRealTimeService : Service() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var notesRef: DatabaseReference

@@ -13,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.developer.edra.unedrappacademy.android.service.RealTimeDatabaseService
+import com.developer.edra.unedrappacademy.android.service.PushNotificationRealTimeService
 import com.developer.edra.unedrappacademy.android.ui.audit.AuditViewModel
 import com.developer.edra.unedrappacademy.android.ui.dashboard.DashboardViewModel
 import com.developer.edra.unedrappacademy.android.ui.login.LoginViewModel
@@ -93,10 +93,10 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            // Acción cuando el permiso es otorgado
-            startMyService() // Inicia tu servicio aquí si es relevante
+
+            startMyService()
         } else {
-            // Acción cuando el permiso es denegado
+
             Toast.makeText(this, "Permiso de notificación denegado", Toast.LENGTH_SHORT).show()
         }
     }
@@ -113,8 +113,14 @@ class MainActivity : ComponentActivity() {
 
     @SuppressLint("NewApi")
     private fun startMyService() {
-        val serviceIntent = Intent(this, RealTimeDatabaseService::class.java)
+        val serviceIntent = Intent(this, PushNotificationRealTimeService::class.java)
         startForegroundService(serviceIntent)
+    }
+
+    @SuppressLint("NewApi")
+    fun stopBackgroundService() {
+        val serviceIntent = Intent(this, PushNotificationRealTimeService::class.java)
+       stopService(serviceIntent)
     }
 
     @Deprecated("Deprecated in Java")

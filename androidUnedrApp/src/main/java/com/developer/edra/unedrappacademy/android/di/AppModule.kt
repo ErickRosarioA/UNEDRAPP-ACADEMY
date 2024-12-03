@@ -175,9 +175,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideMainViewModel(
+        @ApplicationContext appContext: Context,
         getCurrentUserUseCase: GetCurrentUserUseCase,
         logoutUseCase: LogoutUseCase
     ): MainViewModel {
-        return MainViewModel(getCurrentUserUseCase, logoutUseCase)
+        return MainViewModel(appContext,getCurrentUserUseCase, logoutUseCase)
     }
 }

@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".service.RealTimeDatabaseService"
+            android:name=".service.PushNotificationRealTimeService"
             android:enabled="true"
             android:exported="false" />
         <service
