@@ -35,9 +35,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.developer.edra.unedrappacademy.android.R
-import com.developer.edra.unedrappacademy.android.data.remote.model.AuditDetail
-import com.developer.edra.unedrappacademy.android.data.remote.model.Period
-import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
+import com.developer.edra.unedrappacademy.android.domain.model.AuditDetail
+import com.developer.edra.unedrappacademy.android.domain.model.Period
+import com.developer.edra.unedrappacademy.android.domain.model.Subject
 import com.developer.edra.unedrappacademy.android.ui.dialogs.LegendAuditDialog
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.utils.Constans

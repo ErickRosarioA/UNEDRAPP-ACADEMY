@@ -1,9 +1,13 @@
 package com.developer.edra.unedrappacademy.android.ui.main
 
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.developer.edra.unedrappacademy.android.data.remote.model.UserLogged
-import com.developer.edra.unedrappacademy.android.data.remote.repository.AuthRepository
+import com.developer.edra.unedrappacademy.android.domain.model.UserLogged
+import com.developer.edra.unedrappacademy.android.domain.use_case.GetCurrentUserUseCase
+import com.developer.edra.unedrappacademy.android.domain.use_case.LogoutUseCase
+import com.developer.edra.unedrappacademy.android.service.PushNotificationRealTimeService
 import com.developer.edra.unedrappacademy.android.utils.CallbackHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +18,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val application: Context,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
+    companion object {
+        const val PERMISSION_REQUEST_CODE = 1001
+    }
 
     private val _userLogged = MutableStateFlow(UserLogged())
     val userLogged: StateFlow<UserLogged> get() = _userLogged.asStateFlow()
@@ -33,7 +42,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun getCurrentUser() {
-        authRepository.getCurrentUser(CallbackHandle(
+        getCurrentUserUseCase(CallbackHandle(
             onSuccess = {
                 _userLogged.value = _userLogged.value.copy(email = it.email)
             },
@@ -41,10 +50,15 @@ class MainViewModel @Inject constructor(
         ))
     }
 
+    private fun stopBackgroundService() {
+        val serviceIntent = Intent(application, PushNotificationRealTimeService::class.java)
+        application.stopService(serviceIntent)
+    }
 
     fun logout(logoutResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            authRepository.logout(CallbackHandle(
+            stopBackgroundService()
+            logoutUseCase(CallbackHandle(
                 onSuccess = {
                     logoutResult.invoke(it)
                 },

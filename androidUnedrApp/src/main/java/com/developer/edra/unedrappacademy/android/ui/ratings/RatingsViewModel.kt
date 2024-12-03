@@ -3,21 +3,25 @@ package com.developer.edra.unedrappacademy.android.ui.ratings
 import android.icu.util.Calendar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.developer.edra.unedrappacademy.android.data.remote.model.Career
-import com.developer.edra.unedrappacademy.android.data.remote.model.NoteActive
-import com.developer.edra.unedrappacademy.android.data.remote.model.NoteDetail
-import com.developer.edra.unedrappacademy.android.data.remote.model.Resource
-import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
-import com.developer.edra.unedrappacademy.android.data.remote.repository.DataRepository
-import com.developer.edra.unedrappacademy.android.ui.base.BaseUiState
+import com.developer.edra.unedrappacademy.android.domain.model.Career
+import com.developer.edra.unedrappacademy.android.domain.model.NoteActive
+import com.developer.edra.unedrappacademy.android.domain.model.NoteDetail
+import com.developer.edra.unedrappacademy.android.domain.model.Resource
+import com.developer.edra.unedrappacademy.android.domain.model.Subject
+import com.developer.edra.unedrappacademy.android.domain.repository.DataRepository
+import com.developer.edra.unedrappacademy.android.base.BaseUiState
+import com.developer.edra.unedrappacademy.android.domain.use_case.DataGeneralUseCases
 import com.developer.edra.unedrappacademy.android.utils.getMonthRange
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class RatingsViewModel @Inject constructor(private val dataRepository: DataRepository) :
+class RatingsViewModel @Inject constructor(private val dataGeneralUseCases: DataGeneralUseCases) :
     ViewModel() {
 
     var uiState = MutableStateFlow(UIState())
@@ -26,12 +30,20 @@ class RatingsViewModel @Inject constructor(private val dataRepository: DataRepos
 
     private fun fetchStudentByEmail(email: String) {
         viewModelScope.launch {
-            dataRepository.getStudentByEmail(email).collect { resource ->
+            dataGeneralUseCases.getStudentByEmail(email).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val studentData = resource.data!!
-                        fetchPeriods()
-                        fetchCareerById(studentData.careerId)
+
+                        withContext(Dispatchers.IO) {
+                            fetchPeriods()
+                        }
+
+
+                        withContext(Dispatchers.IO) {
+                            fetchCareerById(studentData.careerId)
+                        }
+
                         fetchNoteActiveId(studentData.id)
                     }
 
@@ -50,7 +62,7 @@ class RatingsViewModel @Inject constructor(private val dataRepository: DataRepos
 
     private fun fetchCareerById(id: Int) {
         viewModelScope.launch {
-            dataRepository.getCareerById(id).collect { resource ->
+            dataGeneralUseCases.getCareerById(id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val careerByStudent = resource.data!!
@@ -72,7 +84,7 @@ class RatingsViewModel @Inject constructor(private val dataRepository: DataRepos
 
     private fun fetchPeriods() {
         viewModelScope.launch {
-            dataRepository.getPeriods().collect { resource ->
+            dataGeneralUseCases.getAllPeriods().collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
@@ -104,7 +116,7 @@ class RatingsViewModel @Inject constructor(private val dataRepository: DataRepos
 
     private fun fetchNoteActiveId(id: Int) {
         viewModelScope.launch {
-            dataRepository.getActiveNotesById(id).collect { resource ->
+            dataGeneralUseCases.getActiveNotesByStudentId(id).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val noteActivesByStudent = resource.data!!

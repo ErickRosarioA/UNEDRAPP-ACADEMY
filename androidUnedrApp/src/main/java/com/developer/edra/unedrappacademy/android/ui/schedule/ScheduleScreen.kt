@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.developer.edra.unedrappacademy.android.R
-import com.developer.edra.unedrappacademy.android.data.remote.model.Course
+import com.developer.edra.unedrappacademy.android.domain.model.Course
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.utils.capitalizeEachWord
 

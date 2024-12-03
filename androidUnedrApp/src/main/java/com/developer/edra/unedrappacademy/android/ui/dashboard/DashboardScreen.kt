@@ -30,9 +30,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.developer.edra.unedrappacademy.android.R
-import com.developer.edra.unedrappacademy.android.data.remote.model.Career
-import com.developer.edra.unedrappacademy.android.data.remote.model.Student
-import com.developer.edra.unedrappacademy.android.data.remote.model.Subject
+import com.developer.edra.unedrappacademy.android.domain.model.Career
+import com.developer.edra.unedrappacademy.android.domain.model.Student
+import com.developer.edra.unedrappacademy.android.domain.model.Subject
 import com.developer.edra.unedrappacademy.android.ui.main.MainViewModel
 import com.developer.edra.unedrappacademy.android.utils.capitalizeEachWord
 
